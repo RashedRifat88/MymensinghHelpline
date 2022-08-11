@@ -1,0 +1,38 @@
+{
+  "doctor_courses": [
+    {
+      "id": 38463,
+      "doctor_id": 27833,
+      "reg_no": "reg_no",
+      "year": "session_name",
+      "session": "session_name",
+      "course": "course_name",
+      "discipline": "discipline_name",
+      "batch": "batch_name",
+      "doctor_courses": [
+        {
+          "exam_id": 38,
+          "exam_name": "exam_name",
+          "exam_serial": 2354
+        }
+      ]
+    },
+    {
+      "id": 38463,
+      "doctor_id": 27833,
+      "reg_no": "reg_no",
+      "year": "session_name",
+      "session": "session_name",
+      "course": "course_name",
+      "discipline": "discipline_name",
+      "batch": "batch_name",
+      "doctor_courses": [
+        {
+          "exam_id": 38,
+          "exam_name": "exam_name",
+          "exam_serial": 2354
+        }
+      ]
+    }
+  ]
+}
