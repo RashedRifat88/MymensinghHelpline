@@ -1,23 +1,13 @@
-package com.egsystembd.MymensinghHelpline.ui.home.adapter;
+package com.egsystembd.MymensinghHelpline.ui.home.mymensingh_division.adapter;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.CountDownTimer;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -25,26 +15,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.bumptech.glide.Glide;
 import com.egsystembd.MymensinghHelpline.R;
-import com.egsystembd.MymensinghHelpline.model.HomeModuleModel;
-import com.egsystembd.MymensinghHelpline.ui.home.mymensingh_division.MymensinghDivisionActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.HomeModuleViewHolder> {
+public class MymensinghDivAdapter extends RecyclerView.Adapter<MymensinghDivAdapter.MymensinghDivViewHolder> {
 
     List<String> home_module_name_eng_list = new ArrayList<>();
     List<String> home_module_name_ban_list = new ArrayList<>();
@@ -66,7 +48,7 @@ public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.Ho
 
     private AdapterCallback adapterCallback;
 
-    public HomeModuleAdapter(Context context) {
+    public MymensinghDivAdapter(Context context) {
         this.context = context;
 
 //        try {
@@ -106,10 +88,10 @@ public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.Ho
 
 
     @Override
-    public HomeModuleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MymensinghDivViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.single_item_home_module_list, parent, false);
-        HomeModuleViewHolder myViewHolder = new HomeModuleViewHolder(view);
+        MymensinghDivViewHolder myViewHolder = new MymensinghDivViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +103,7 @@ public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.Ho
 
 
     @Override
-    public void onBindViewHolder(final HomeModuleAdapter.HomeModuleViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(final MymensinghDivAdapter.MymensinghDivViewHolder holder, @SuppressLint("RecyclerView") int position) {
 //        TextView txtSlNo = holder.txtSlNo;
 //        TextView tv_time_left_in_days = holder.tv_time_left_in_days;
 //        TextView tv_time_left = holder.tv_time_left;
@@ -180,18 +162,18 @@ public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.Ho
 
 //        String name = subscription.getName();
 
-//        Log.d("tag_position", "position in:  "+String.valueOf(position));
-
         card1.setOnClickListener(view -> {
-//            Log.d("tag_position", "position:  "+String.valueOf(position));
-            if (position == 14) {
-                Intent intent = new Intent(context, MymensinghDivisionActivity.class);
-                context.startActivity(intent);
-            }
+            int VideoPlaylistActivity_code = 1;
 
+//            Intent intent = new Intent(context, SubscriptionVideoActivity.class);
+//            intent.putExtra("video_url", videoLink);
+//            intent.putExtra("video_password", videoPassword);
+//            intent.putExtra("from_where", "my_subscription_adapter");
+//            ((Activity) context).startActivityForResult(intent, VideoPlaylistActivity_code);
         });
 
     }
+
 
 
     public long milliseconds(String date) {
@@ -215,7 +197,8 @@ public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.Ho
     }
 
 
-    class HomeModuleViewHolder extends RecyclerView.ViewHolder {
+
+    class MymensinghDivViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtSlNo;
         TextView tv_title;
@@ -231,7 +214,7 @@ public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.Ho
         CardView card1;
         ProgressBar progressBar;
 
-        public HomeModuleViewHolder(View itemView) {
+        public MymensinghDivViewHolder(View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_title_ban = itemView.findViewById(R.id.tv_title_ban);

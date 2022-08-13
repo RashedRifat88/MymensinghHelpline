@@ -8,72 +8,87 @@
         <item>Doctor</item>
         <item>Home Pathology</item>
         <item>Hospital and Clinic</item>
-        <item>Government Institution</item>
-        <item>Educational Institution</item>
-        <item>Social Institution</item>
-        <item>Blood Donation Institution</item>
-        <item>Library</item>
+        <item>Medical Accessories</item>
+        <item>Medicine</item>
+        <item>Nursing</item>
+        <item>Ambulance</item>
         <item>Tution</item>
-        <item>Hotel and Restaurent</item>
-        <item>Bus and Train</item>
-        <item>Mymensingh Division</item>
-        <item>IT Institute</item>
-        <item>Show Rooms</item>
-        <item>House Rent</item>
         <item>Buy and Sell</item>
-        <item>Places of Interest</item>
+        <item>Blood</item>
+        <item>House Rent</item>
+        <item>Results</item>
+        <item>Jobs</item>
         <item>Quiz</item>
-        <item>Admission and Job</item>
-        <item>Application</item>
-        <item>Result</item>
+        <item>Mymensingh Division</item>
+        <item>Admission and Application</item>
     </string-array>
 
-    <string-array name="home_module_name_ban_list">
-        <item>ডাক্তার</item>
-        <item>হোম প্যাথলজি</item>
-        <item>হাসপাতাল এবং ক্লিনিক</item>
-        <item>সরকারী প্রতিষ্ঠান</item>
-        <item>শিক্ষা প্রতিষ্ঠান</item>
-        <item>সামাজিক প্রতিষ্ঠান</item>
-        <item>রক্তদাতা প্রতিষ্ঠান</item>
-        <item>লাইব্রেরি</item>
-        <item>টিউশন</item>
-        <item>হোটেল ও রেস্তোরাঁ</item>
-        <item>বাস ও ট্রেন</item>
-        <item>ময়মনসিংহ বিভাগ</item>
-        <item>আইটি প্রতিষ্ঠান</item>
-        <item>শোরুম</item>
-        <item>বাসা ভাড়া</item>
-        <item>বেচা-কেনা</item>
-        <item>দর্শনীয় স্থান</item>
-        <item>কুইজ</item>
-        <item>ভর্তি ও চাকরী</item>
-        <item>আবেদন</item>
-        <item>ফলাফল</item>
-    </string-array>
+
+<!--    <string-array name="home_module_name_ban_list">-->
+<!--        <item>ডাক্তার</item>-->
+<!--        <item>হোম প্যাথলজি</item>-->
+<!--        <item>হাসপাতাল এবং ক্লিনিক</item>-->
+<!--        <item>সরকারী প্রতিষ্ঠান</item>-->
+<!--        <item>শিক্ষা প্রতিষ্ঠান</item>-->
+<!--        <item>সামাজিক প্রতিষ্ঠান</item>-->
+<!--        <item>রক্তদাতা প্রতিষ্ঠান</item>-->
+<!--        <item>লাইব্রেরি</item>-->
+<!--        <item>টিউশন</item>-->
+<!--        <item>হোটেল ও রেস্তোরাঁ</item>-->
+<!--        <item>বাস ও ট্রেন</item>-->
+<!--        <item>ময়মনসিংহ বিভাগ</item>-->
+<!--        <item>আইটি প্রতিষ্ঠান</item>-->
+<!--        <item>শোরুম</item>-->
+<!--        <item>বাসা ভাড়া</item>-->
+<!--        <item>বেচা-কেনা</item>-->
+<!--        <item>দর্শনীয় স্থান</item>-->
+<!--        <item>কুইজ</item>-->
+<!--        <item>ভর্তি ও চাকরী</item>-->
+<!--        <item>আবেদন</item>-->
+<!--        <item>ফলাফল</item>-->
+<!--    </string-array>-->
 
     <string-array name="home_module_image_list">
         <item>file:///android_asset/home_modules/doctor1.png</item>
         <item>file:///android_asset/home_modules/patholopgy.png</item>
         <item>file:///android_asset/home_modules/hospital.png</item>
+        <item>file:///android_asset/home_modules/medical_accessories.png</item>
+        <item>file:///android_asset/home_modules/medicine.png</item>
+        <item>file:///android_asset/home_modules/nursing.png</item>
+        <item>file:///android_asset/home_modules/ambulance.png</item>
+        <item>file:///android_asset/home_modules/classroom.png</item>
+        <item>file:///android_asset/home_modules/cash_on_delivery.png</item>
+        <item>file:///android_asset/home_modules/blood.png</item>
+        <item>file:///android_asset/home_modules/door_key.png</item>
+        <item>file:///android_asset/home_modules/result.png</item>
+        <item>file:///android_asset/home_modules/job.png</item>
+        <item>file:///android_asset/home_modules/brain.png</item>
+        <item>file:///android_asset/home_modules/mymensingh_map.png</item>
+        <item>file:///android_asset/home_modules/application.png</item>
+    </string-array>
+
+    <string-array name="mymensingh_div_service_name_list">
+        <item>Government Institution</item>
+        <item>Educational Institution</item>
+        <item>Social Institution</item>
+        <!--        <item>Library</item>-->
+        <item>Hotel and Restaurent</item>
+        <item>Bus and Train</item>
+        <item>IT Institute</item>
+        <item>Show Rooms</item>
+        <item>Places of Interest</item>
+    </string-array>
+
+    <string-array name="mymensingh_div_service_image_list">
         <item>file:///android_asset/home_modules/government_institution.png</item>
         <item>file:///android_asset/home_modules/school.png</item>
         <item>file:///android_asset/home_modules/social.png</item>
-        <item>file:///android_asset/home_modules/blood.png</item>
-        <item>file:///android_asset/home_modules/library.png</item>
-        <item>file:///android_asset/home_modules/classroom.png</item>
+<!--        <item>file:///android_asset/home_modules/library.png</item>-->
         <item>file:///android_asset/home_modules/restaurant.png</item>
         <item>file:///android_asset/home_modules/bus.png</item>
-        <item>file:///android_asset/home_modules/mymensingh_map.png</item>
         <item>file:///android_asset/home_modules/technical_support.png</item>
         <item>file:///android_asset/home_modules/shop.png</item>
-        <item>file:///android_asset/home_modules/door_key.png</item>
-        <item>file:///android_asset/home_modules/cash_on_delivery.png</item>
         <item>file:///android_asset/home_modules/location.png</item>
-        <item>file:///android_asset/home_modules/brain.png</item>
-        <item>file:///android_asset/home_modules/id_card.png</item>
-        <item>file:///android_asset/home_modules/application.png</item>
-        <item>file:///android_asset/home_modules/result.png</item>
     </string-array>
 
 

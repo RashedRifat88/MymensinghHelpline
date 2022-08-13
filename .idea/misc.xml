@@ -5,21 +5,32 @@
       <map>
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable-v24/ic_menu1.xml" value="0.1405" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable-v24/rounded_corner4.xml" value="0.173" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.173" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/background_btn_white.xml" value="0.2045" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/gradient2.xml" value="0.14" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/gradient3.xml" value="0.2045" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/gradient_orange1.xml" value="0.14" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/ic_icon_search.xml" value="0.2045" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/ic_invite_others.xml" value="0.173" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/ic_logout.xml" value="0.173" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/ic_menu1.xml" value="0.1405" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/ic_phone.xml" value="0.173" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/ic_profile.xml" value="0.173" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/rounded_corner18.xml" value="0.173" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/rounded_search2.xml" value="0.14" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/drawable/side_nav_bar.xml" value="0.173" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/activity_join.xml" value="0.25" />
-        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/activity_main_with_drawer.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/activity_mymensingh_division.xml" value="0.25" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/activity_otp_verification_second_page.xml" value="0.25" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/app_bar_main.xml" value="0.25" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/nav_header_main.xml" value="0.25" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/layout/single_item_home_module_list.xml" value="0.25" />
+        <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/menu/activity_main_drawer.xml" value="0.365625" />
         <entry key="..\:/Users/Rifat/AndroidStudioProjects/MymensinghHelpline/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
       </map>
     </option>

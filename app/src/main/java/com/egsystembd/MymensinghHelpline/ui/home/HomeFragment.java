@@ -1,5 +1,6 @@
 package com.egsystembd.MymensinghHelpline.ui.home;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -44,7 +46,7 @@ public class HomeFragment extends Fragment {
     private HomeModuleAdapter homeModuleAdapter;
 
     List<String> home_module_name_eng_list;
-    List<String> home_module_name_ban_list;
+    List<String> home_module_name_ban_list = new ArrayList<>();
     List<String> home_module_image_list;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -71,9 +73,16 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-//    private void topScrollText() {
-//        binding.tvMarquee.setSelected(true);
-//    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        loadListData();
+        loadRecyclerView();
+
+    }
+
 
     private void topScrollText() {
 
@@ -142,7 +151,7 @@ public class HomeFragment extends Fragment {
 
     private void loadListData() {
         home_module_name_eng_list = Arrays.asList(getResources().getStringArray(R.array.home_module_name_eng_list));
-        home_module_name_ban_list = Arrays.asList(getResources().getStringArray(R.array.home_module_name_ban_list));
+//        home_module_name_ban_list = Arrays.asList(getResources().getStringArray(R.array.home_module_name_ban_list));
         home_module_image_list = Arrays.asList(getResources().getStringArray(R.array.home_module_image_list));
     }
 
@@ -153,18 +162,22 @@ public class HomeFragment extends Fragment {
 
 
     private void loadRecyclerView() {
+
+        loadListData();
+
         homeModuleAdapter = new HomeModuleAdapter(getActivity());
         binding.recyclerView.setAdapter(homeModuleAdapter);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 4);
         binding.recyclerView.setLayoutManager(mLayoutManager);
-        homeModuleAdapter.setData(home_module_name_eng_list, home_module_name_ban_list, home_module_image_list);
+//        homeModuleAdapter.setData(home_module_name_eng_list, home_module_name_ban_list, home_module_image_list);
+        homeModuleAdapter.setData(home_module_name_eng_list, home_module_image_list);
         homeModuleAdapter.notifyDataSetChanged();
     }
 
 
     private void filter(String text) {
         List<String> filteredList = new ArrayList<>();
-        List<String> filteredListBan = new ArrayList<>();
+//        List<String> filteredListBan = new ArrayList<>();
         List<String> filteredListImg = new ArrayList<>();
         List<Integer> filteredPosition = new ArrayList<>();
 
@@ -175,12 +188,13 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        for (int position : filteredPosition) {
-            filteredListBan.add(home_module_name_ban_list.get(position));
-            filteredListImg.add(home_module_image_list.get(position));
-        }
+//        for (int position : filteredPosition) {
+//            filteredListBan.add(home_module_name_ban_list.get(position));
+//            filteredListImg.add(home_module_image_list.get(position));
+//        }
 
-        homeModuleAdapter.filterList(filteredList, filteredListBan, filteredListImg);
+//        homeModuleAdapter.filterList(filteredList, filteredListBan, filteredListImg);
+        homeModuleAdapter.filterList(filteredList, filteredListImg);
     }
 
 
