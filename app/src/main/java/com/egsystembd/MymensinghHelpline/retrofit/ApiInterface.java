@@ -1,5 +1,6 @@
 package com.egsystembd.MymensinghHelpline.retrofit;
 
+import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
 import com.egsystembd.MymensinghHelpline.model.LoginModel;
 import com.egsystembd.MymensinghHelpline.model.RegisterModel;
 
@@ -77,6 +78,15 @@ public interface ApiInterface {
                                                 @Field("email") String email,
                                                 @Field("password") String password,
                                                 @Field("device_name") String device_name
+
+    );
+
+
+
+    @GET(Api.doctors)
+    Observable<Response<DoctorListModel>> doctors(@Header("authorization") String authorization,
+                                                  @Header("Accept") String accept,
+                                                  @Query("department") String department
 
     );
 

@@ -7,6 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.net.wifi.hotspot2.pps.Credential;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -54,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         initStatusBar();
         initComponents();
         checkSharedPrefData();
+
+//        Log.d("tag11111",  "response.code(): " + "5555");
 
     }
 
@@ -221,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
             if (!emailIsEmpty && !passwordIsEmpty) {
                 loginApi();
             } else {
-                Toast.makeText(this, "Please fill up all the fields correctly", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill up all the fields correctly" + "rrr", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -291,95 +295,230 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    @SuppressLint("CheckResult")
+//    @SuppressLint("CheckResult")
+//   private void loginApi() {
+//
+//        String userName = "";
+//        if (SharedData.getMOBILE(this) ==null || SharedData.getMOBILE(this).isEmpty()){
+//            userName = etEmail.getText().toString();
+//        }else {
+//            userName = SharedData.getMOBILE(this);
+//        }
+////
+////        String otpToken = SharedData.getTOKEN_OTP(this);;
+//
+//        animationView.setVisibility(View.VISIBLE);
+//
+////        String token = SharedData.getTOKEN(this);
+////        String name = etFullName.getText().toString();
+//        String password = etPassword.getText().toString();
+//        String deviceModel = android.os.Build.MODEL;
+//        String deviceManufacturer = android.os.Build.MANUFACTURER;
+//        String deviceProduct = Build.PRODUCT;
+//        int sdkVersion = android.os.Build.VERSION.SDK_INT;
+//        String deviceName = "";
+////        deviceName = deviceManufacturer + " " + deviceModel + " android_sdk: "+ sdkVersion;
+//        String token = "";
+//        String authorization = "Bearer" + " " ;
+//        String accept = "application/json";
+//
+////        Log.d("tag11111", " deviceModel: " + deviceModel);
+////        Log.d("tag11111", " deviceManufacturer: " + deviceManufacturer);
+////        Log.d("tag11111", " deviceProduct: " + deviceProduct);
+////
+////
+//        RetrofitApiClient.getApiInterface().user_login(authorization, accept,  userName, password, deviceName)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(response -> {
+//
+//                            Toast.makeText(this, "response.code():", Toast.LENGTH_SHORT).show();
+////                            Log.d("tag11111",  "response.code(): " + response.code());
+////                            progressDialog.dismiss();
+//
+//                            if (response.code() == 401){
+//                                animationView.setVisibility(View.GONE);
+//
+//                                new MaterialDialog.Builder(LoginActivity.this)
+//                                        .title("Login Status")
+//                                        .content("User or password is not correct. Please try again.")
+//                                        .positiveText("")
+//                                        .negativeText("Ok")
+//                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                                            @Override
+//                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//                                            }
+//                                        })
+//                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+//                                            @Override
+//                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                                dialog.cancel();
+//                                            }
+//                                        })
+//                                        .show();
+//
+//                            }
+//
+//                            LoginModel itemModel = response.body();
+////                            String message = itemModel.getMessage();
+//
+//
+//                            if (response.isSuccessful()) {
+//
+//                                animationView.setVisibility(View.GONE);
+//
+////                                LoginModel itemModel = response.body();
+////                                Log.d("tag11111", " itemModel: " + itemModel);
+//
+//
+//                                String user_phone = itemModel.getUser().getPhone();
+//                                String user_image = itemModel.getUser().getProfilePhotoUrl();
+//                                String userToken = itemModel.getToken();
+//                                String user_name = itemModel.getUser().getName();
+//                                String user_id = itemModel.getUser().getId().toString();
+//
+//                                SharedData.saveTOKEN(this, userToken);
+//                                SharedData.saveMOBILE(this, user_phone);
+//                                SharedData.saveUSER_NAME(this, user_name);
+//                                SharedData.saveDOCTOR_ID(this, user_id);
+//
+//                                if (response.code() == 200){
+//
+//                                    SharedData.saveIS_USER_REGISTERED(this, true);
+//                                    SharedData.saveIS_USER_LOGGED_IN(this, true);
+//
+//                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                                    startActivity(intent);
+//                                    finish();
+//                                }
+//
+//
+//                            } else {
+////                                Log.d("tag11111", " response.errorBody().string(): " + response.errorBody().string());
+//
+//                                new MaterialDialog.Builder(LoginActivity.this)
+//                                        .title("Login Status")
+//                                        .content(response.errorBody().string())
+//                                        .positiveText("Yes")
+//                                        .negativeText("No")
+//                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                                            @Override
+//                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//                                            }
+//                                        })
+//                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+//                                            @Override
+//                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//                                                dialog.cancel();
+//                                            }
+//                                        })
+//                                        .show();
+//
+//                            }
+//
+//                        },
+//                        error -> {
+//
+////                            Log.d("tag11111", " error: " + error.getMessage());
+//                        },
+//                        () -> {
+//                            Log.d("tag11111", " response.code(): ");
+//                        }
+//
+//                );
+//
+//    }
+//
+
+
+   @SuppressLint("CheckResult")
    private void loginApi() {
 
-        String userName = "";
-        if (SharedData.getMOBILE(this) ==null || SharedData.getMOBILE(this).isEmpty()){
-            userName = etEmail.getText().toString();
-        }else {
-            userName = SharedData.getMOBILE(this);
-        }
-//
-//        String otpToken = SharedData.getTOKEN_OTP(this);;
-
-        animationView.setVisibility(View.VISIBLE);
-
-//        String token = SharedData.getTOKEN(this);
-//        String name = etFullName.getText().toString();
-        String password = etPassword.getText().toString();
-        String deviceModel = android.os.Build.MODEL;
-        String deviceManufacturer = android.os.Build.MANUFACTURER;
-        String deviceProduct = Build.PRODUCT;
-        int sdkVersion = android.os.Build.VERSION.SDK_INT;
+        String userName = "user@gmail.com";
+        String password = "12345678";
         String deviceName = "";
-//        deviceName = deviceManufacturer + " " + deviceModel + " android_sdk: "+ sdkVersion;
         String token = "";
         String authorization = "Bearer" + " " ;
         String accept = "application/json";
 
-//        Log.d("tag11111", " deviceModel: " + deviceModel);
-//        Log.d("tag11111", " deviceManufacturer: " + deviceManufacturer);
-//        Log.d("tag11111", " deviceProduct: " + deviceProduct);
-//
-//
+
         RetrofitApiClient.getApiInterface().user_login(authorization, accept,  userName, password, deviceName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
 
-                            Toast.makeText(this, "response.code():", Toast.LENGTH_SHORT).show();
-//                            Log.d("tag11111",  "response.code(): "+response.code());
-//                            progressDialog.dismiss();
+                            Log.d("tag3344", response.toString());
+                            Log.d("tag3344", response.message().toString());
+                            Log.d("tag3344", String.valueOf(response.code()));
 
-                            if (response.code() == 401){
-                                animationView.setVisibility(View.GONE);
+                            if (response.code() == 200) {
 
-                                new MaterialDialog.Builder(LoginActivity.this)
-                                        .title("Login Status")
-                                        .content("User or password is not correct. Please try again.")
-                                        .positiveText("")
-                                        .negativeText("Ok")
-                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                            @Override
-                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                LoginModel loginModel = response.body();
+//                                boolean status = loginModel.getStatus();
+//                                boolean status = loginModel.getSuccess();
+//                                String status2 = loginModel.getMessage();
+                                String userToken = loginModel.getToken().toString();
 
-                                            }
-                                        })
-                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                            @Override
-                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                dialog.cancel();
-                                            }
-                                        })
-                                        .show();
+                                SharedData.saveTOKEN(LoginActivity.this, userToken);
 
+                                SharedData.saveIS_USER_REGISTERED(this, true);
+                                SharedData.saveIS_USER_LOGGED_IN(this, true);
+
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
+//
 
-                            LoginModel itemModel = response.body();
-//                            String message = itemModel.getMessage();
-
+                            new MaterialDialog.Builder(LoginActivity.this)
+                                    .title("Status")
+                                    .content(response.code())
+                                    .positiveText("")
+                                    .negativeText("Ok")
+                                    .show();
 
                             if (response.isSuccessful()) {
 
-                                animationView.setVisibility(View.GONE);
+//                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                                hideProgress();
+//                                customProgress.hideProgress();
+                                String responseString = response.message();
+                                Log.d("tag3344", "Response String:");
 
-//                                LoginModel itemModel = response.body();
-//                                Log.d("tag11111", " itemModel: " + itemModel);
+//                                Response<AccountVerificationModel> loginModel1 = response;
+                                LoginModel loginModel = response.body();
+//                                boolean status = loginModel.getStatus();
+//                                boolean status = loginModel.getSuccess();
+//                                String status2 = loginModel.getMessage();
+                                String userToken = loginModel.getToken().toString();
+//                                String message = loginModel.getMessage();
+//                                String user_name = loginModel.getData().getName();
+//                                String email = loginModel.getData().getEmail();
+//                                String address = loginModel.getData().getAddress();
+//                                String verification = loginModel.getData().getVerification();
+//                                versionNameFromServer = loginModel.getData().getVersion_name();
+
+//                                Log.d("tag3344", "Response Status: " + status);
+//                                Log.d("tag20", "Response Status1: " + status);
+//                                Log.d("tag20", "message " + message);
+//                                Log.d("tag20", "address " + address);
+//                                Log.d("tag20", "versionNameFromServer: " + versionNameFromServer);
+//                                Log.d("tag20", "versionName: " + versionName);
+
+                                Log.d("tag20", "userToken in onClickVerify: ");
 
 
-                                String user_phone = itemModel.getUser().getPhone();
-                                String user_image = itemModel.getUser().getProfilePhotoUrl();
-                                String userToken = itemModel.getToken();
-                                String user_name = itemModel.getUser().getName();
-                                String user_id = itemModel.getUser().getId().toString();
 
-                                SharedData.saveTOKEN(this, userToken);
-                                SharedData.saveMOBILE(this, user_phone);
-                                SharedData.saveUSER_NAME(this, user_name);
-                                SharedData.saveDOCTOR_ID(this, user_id);
+//                                customProgress.showProgress(LoginActivity.this, "Verifying... Please wait...", true);
 
-                                if (response.code() == 200){
+                                if (response.code() == 200) {
+
+
+                                    SharedData.saveTOKEN(LoginActivity.this, userToken);
 
                                     SharedData.saveIS_USER_REGISTERED(this, true);
                                     SharedData.saveIS_USER_LOGGED_IN(this, true);
@@ -388,42 +527,33 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 }
+//
 
 
                             } else {
-//                                Log.d("tag11111", " response.errorBody().string(): " + response.errorBody().string());
-
-                                new MaterialDialog.Builder(LoginActivity.this)
-                                        .title("Login Status")
-                                        .content(response.errorBody().string())
-                                        .positiveText("Yes")
-                                        .negativeText("No")
-                                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                            @Override
-                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                                            }
-                                        })
-                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                            @Override
-                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                                dialog.cancel();
-                                            }
-                                        })
-                                        .show();
-
+                                Log.d("tag20", "else is called ");
                             }
-
                         },
                         error -> {
+//                            customProgress.hideProgress();
+//                            new MaterialDialog.Builder(LoginActivity.this)
+//                                    .title("Status")
+//                                    .content("Login Status: " )
+//                                    .positiveText("")
+//                                    .negativeText("Ok")
+//                                    .show();
 
-//                            Log.d("tag11111", " error: " + error.getMessage());
+                            Log.d("tag20", error.getMessage() );
+
                         },
                         () -> {
-                            Log.d("tag11111", " response.code(): ");
-                        }
+                            Log.d("tag3344", "onComplete");
+//                            customProgress.hideProgress();
 
+
+                        }
                 );
+
 
     }
 
