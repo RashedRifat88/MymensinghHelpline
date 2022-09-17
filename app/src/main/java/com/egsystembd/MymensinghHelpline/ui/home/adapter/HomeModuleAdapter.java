@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.egsystembd.MymensinghHelpline.R;
 import com.egsystembd.MymensinghHelpline.model.HomeModuleModel;
+import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.DoctorDepartmentActivity;
 import com.egsystembd.MymensinghHelpline.ui.home.mymensingh_division.MymensinghDivisionActivity;
 
 import java.text.ParseException;
@@ -183,7 +184,11 @@ public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.Ho
 //        Log.d("tag_position", "position in:  "+String.valueOf(position));
 
         card1.setOnClickListener(view -> {
-//            Log.d("tag_position", "position:  "+String.valueOf(position));
+            if (position == 0) {
+                Intent intent = new Intent(context, DoctorDepartmentActivity.class);
+                context.startActivity(intent);
+            }
+
             if (position == 14) {
                 Intent intent = new Intent(context, MymensinghDivisionActivity.class);
                 context.startActivity(intent);

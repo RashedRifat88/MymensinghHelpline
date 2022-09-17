@@ -93,6 +93,62 @@
 
 
 
+
+    <string-array name="division_wise_doctor_title_code_array">
+        <item>GP</item>
+        <item>MEDICINE</item>
+        <item>BONE</item>
+        <item>PMEDICINE</item>
+        <item>SEX</item>
+        <item>CHILD</item>
+        <item>GYNE</item>
+        <item>DENTAL</item>
+        <item>ENT</item>
+        <item>EYE</item>
+        <item>GYSTERIC</item>
+        <item>PSYCHI</item>
+        <item>DIABETES</item>
+        <item>BRAIN</item>
+        <item>KIDNEY</item>
+        <item>HEART</item>
+        <item>LUNGS</item>
+        <item>CANCER</item>
+        <item>GSURGERY</item>
+        <item>VSURGERY</item>
+        <item>COUNSELING</item>
+        <item>LIFESTYLE</item>
+    </string-array>
+
+
+    <string-array name="division_wise_doctor_image_array">
+        <item>file:///android_asset/png/036-stethoscope.png</item>
+        <item>file:///android_asset/png/healthcare-and-medical.png</item>
+        <item>file:///android_asset/png/human.png</item>
+        <item>file:///android_asset/png/004-massage.png</item>
+        <item>file:///android_asset/png/010-female.png</item>
+        <item>file:///android_asset/png/020-baby.png</item>
+        <item>file:///android_asset/png/023-gyni-o-strirog.png</item>
+        <item>file:///android_asset/png/009-toothache.png</item>
+        <item>file:///android_asset/png/nak_kan_gola.png</item>
+        <item>file:///android_asset/png/011-eye.png</item>
+        <item>file:///android_asset/png/stomach.png</item>
+        <item>file:///android_asset/png/012-medical.png</item>
+        <item>file:///android_asset/png/014-glucosemeter.png</item>
+        <item>file:///android_asset/png/008-brain.png</item>
+        <item>file:///android_asset/png/015-urology.png</item>
+        <item>file:///android_asset/png/heart1.png</item>
+        <item>file:///android_asset/png/005-air.png</item>
+        <item>file:///android_asset/png/024-ribbon.png</item>
+        <item>file:///android_asset/png/016-doctor.png</item>
+        <item>file:///android_asset/png/016-doctor.png</item>
+        <item>file:///android_asset/png/counciling.png</item>
+        <item>file:///android_asset/png/food.png</item>
+    </string-array>
+
+
+
+
+
     <string-array name="on_this_day_title_array">
         <item>World Leprosy Day</item>
         <item>World Cancer Day</item>

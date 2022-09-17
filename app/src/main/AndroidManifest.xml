@@ -30,6 +30,21 @@
         android:theme="@style/Theme.MymensinghHelpline"
         tools:targetApi="31">
         <activity
+            android:name=".credential.ForgetPasswordActivity"
+            android:exported="true" />
+        <activity
+            android:name=".credential.RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".credential.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.home.doctor.doctor_department.doctor_list.DoctorListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.doctor.doctor_department.DoctorDepartmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.mymensingh_division.MymensinghDivisionActivity"
             android:exported="false" />
 

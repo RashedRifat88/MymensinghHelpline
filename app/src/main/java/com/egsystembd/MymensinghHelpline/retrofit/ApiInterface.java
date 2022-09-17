@@ -1,5 +1,8 @@
 package com.egsystembd.MymensinghHelpline.retrofit;
 
+import com.egsystembd.MymensinghHelpline.model.LoginModel;
+import com.egsystembd.MymensinghHelpline.model.RegisterModel;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.Response;
@@ -19,80 +22,63 @@ import retrofit2.http.Url;
 public interface ApiInterface {
 
 //    @FormUrlEncoded
-//    @POST(Api.user_login)
-//    Observable<Response<LoginModel>> login(@Header("Accept") String accept,
-//                                           @Field("bmdc_no") String device_id,
-//                                           @Field("password") String type,
-//                                           @Field("login_type") String login_type
+//    @POST(Api.join)
+//    Observable<Response<JoinModel>> join(@Header("authorization") String authorization,
+//                                         @Header("Accept") String accept,
+//                                         @Field("username") String username
 //    );
 //
 //
 //    @FormUrlEncoded
-//    @POST(Api.user_registration)
-//    Observable<Response<RegisterModel>> register(@Header("Accept") String accept,
-//                                                 @Field("name") String name,
-//                                                 @Field("mobile_number") String mobile_number,
-//                                                 @Field("email") String email,
-//                                                 @Field("medical_college_id") String medical_college_id,
-//                                                 @Field("bmdc_no") String bmdc_no,
-//                                                 @Field("password") String password,
-//                                                 @Field("password_confirmation") String password_confirmation
+//    @POST(Api.auth_confirm)
+//    Observable<Response<AuthConfirmModel>> auth_confirm(@Header("authorization") String authorization,
+//                                                        @Header("Accept") String accept,
+//                                                        @Field("username") String username,
+//                                                        @Field("code") String code
 //    );
 //
 //
-//    @GET(Api.medical_colleges)
-//    Observable<Response<MedicalCollegeModel>> medical_colleges(@Header("Accept") String accept);
-
-
-
-
-//    @POST("retrofit_example/upload_image.php")
-//    Call<ServerResponse> uploadFile(@Part MultipartBody.Part file,
-//                                    @Part("file") RequestBody name);
-
-
-//    @Headers("Content-Type: multipart/form-data")
-////    @FormUrlEncoded
-//    @Multipart
-//    @POST(Api.upload_records_of_report)
-//    Observable<Response<RecordUpload>> upload_records_of_report(@Header("Authorization") String authorization,
-//                                                                @Part List<MultipartBody.Part> files,
-//                                                                @Part List<MultipartBody.Part> files_category,
-//                                                                @Part("name") RequestBody name,
-//                                                                @Query("title") String title,
-//                                                                @Query("recordType") String recordType,
-//                                                                @Query("recordDate") String recordDate
+//    @FormUrlEncoded
+//    @POST(Api.auth_reset)
+//    Observable<Response<AuthResetModel>> auth_reset_password(@Header("authorization") String authorization,
+//                                                             @Header("Accept") String accept,
+//                                                             @Field("username") String username,
+//                                                             @Field("password") String password,
+//                                                             @Field("token") String token
+//    );
 //
-//    );
-
-
-//    @Multipart
-//    @POST(Api.upload_records_of_report)
-//    Observable<Response<RecordUpload>> upload_records_of_report(@Header("Authorization") String authorization,
-//                                                                @Part MultipartBody.Part file,
-//                                                                @Part("name") RequestBody name
-//    );
-
-
-//    @GET(Api.all_article)
-//    Observable<Response<ArticleModel>> getAllArticles();
-
-
-//    @Headers("Content-Type: application/json")
-//    @POST(Api.report_issue_msg)
-//    Observable<Response<HelpCenter>> send_report_issue_msg(@Body JsonObject body,
-//                                                           @Header("authorization") String authorization);
 //
-
-//    @GET(Api.invitation)
-//    Observable<Response<Invitation>> get_invitation(@Header("Authorization") String authorization,
-//                                                    @Query("pageNumber") String pageNumber
+//    @FormUrlEncoded
+//    @POST(Api.auth_forgot)
+//    Observable<Response<AuthForgetPasswordModel>> auth_forgot(@Header("authorization") String authorization,
+//                                                              @Header("Accept") String accept,
+//                                                              @Field("username") String username
 //    );
 
 
-//    @GET()
-//    Observable<Response<DoctorDetailsById>> getDoctorDetailsById(@Url String urlString2,
-//                                                                 @Header("authorization") String authorization);
+    @FormUrlEncoded
+    @POST(Api.user_registration)
+    Observable<Response<RegisterModel>> user_registration(@Header("authorization") String authorization,
+                                                          @Header("Accept") String accept,
+                                                          @Field("name") String name,
+                                                          @Field("username") String username,
+                                                          @Field("password") String password,
+                                                          @Field("device_name") String device_name,
+                                                          @Field("token") String token
+
+    );
+
+
+
+    @FormUrlEncoded
+    @POST(Api.user_login)
+    Observable<Response<LoginModel>> user_login(@Header("authorization") String authorization,
+                                                @Header("Accept") String accept,
+                                                @Field("email") String email,
+                                                @Field("password") String password,
+                                                @Field("device_name") String device_name
+
+    );
 
 
 }
