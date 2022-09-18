@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.egsystembd.MymensinghHelpline.R;
+import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.DoctorListViewHolder> {
 
-    List<String> home_module_name_eng_list = new ArrayList<>();
+    List<DoctorListModel.Doctor> home_module_name_eng_list = new ArrayList<>();
     List<String> home_module_name_ban_list = new ArrayList<>();
     List<String> home_module_image_list = new ArrayList<>();
     Context context;
@@ -61,17 +62,13 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Do
     }
 
 
-    public void setData(List<String> home_module_name_eng_list, List<String> home_module_image_list) {
+    public void setData(List<DoctorListModel.Doctor> home_module_name_eng_list) {
         this.home_module_name_eng_list = home_module_name_eng_list;
 //        this.home_module_name_ban_list = home_module_name_ban_list;
-        this.home_module_image_list = home_module_image_list;
     }
 
-    public void filterList(List<String> home_module_name_eng_list, List<String> home_module_image_list) {
+    public void filterList(List<DoctorListModel.Doctor> home_module_name_eng_list) {
         this.home_module_name_eng_list = home_module_name_eng_list;
-//        this.home_module_name_ban_list = home_module_name_ban_list;
-        this.home_module_image_list = home_module_image_list;
-
         notifyDataSetChanged();
     }
 
@@ -132,15 +129,15 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Do
 ////        cardview.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fall_down_animation));
 //
 //
-        String title = home_module_name_eng_list.get(position);
+        DoctorListModel.Doctor title = home_module_name_eng_list.get(position);
 //        String title_ban = home_module_name_ban_list.get(position);
-        String image = home_module_image_list.get(position);
 
-        tv_title.setText(title);
+
+        tv_title.setText(title.getName());
 //        tv_title_ban.setText(title_ban);
 //        iv_circle.setColorFilter(ContextCompat.getColor(context, R.color.light_blue_100), android.graphics.PorterDuff.Mode.SRC_IN);
-        Glide.with(context).load(image).into(iv_1);
-//
+//        Glide.with(context).load(title.getName()).into(iv_1);
+
 //        int aPosition = position + 1;
 //
 //        if (aPosition % 5 == 1) {

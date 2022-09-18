@@ -1,5 +1,28 @@
 package com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list;
 
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.text.style.ClickableSpan;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -21,6 +44,7 @@ import com.egsystembd.MymensinghHelpline.R;
 import com.egsystembd.MymensinghHelpline.credential.LoginActivity;
 import com.egsystembd.MymensinghHelpline.data.SharedData;
 import com.egsystembd.MymensinghHelpline.databinding.ActivityDoctorListBinding;
+import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
 import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
 import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.adapter.DoctorListAdapter;
 
@@ -42,6 +66,7 @@ public class DoctorListActivity extends AppCompatActivity {
     List<String> mymensingh_div_service_image_list;
 
     private String title = "";
+    List<DoctorListModel.Doctor> doctorList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +84,11 @@ public class DoctorListActivity extends AppCompatActivity {
         initView();
 
         loadRecyclerView();
+
+        Log.d("tag11111", " token: " + "dfdfdf");
         loadDoctorList("");
+        Log.d("tag11111", " token after: " + "dfdfdf");
+
     }
 
 
@@ -77,7 +106,6 @@ public class DoctorListActivity extends AppCompatActivity {
         }
 
     }
-
 
 
     private void initView() {
@@ -101,7 +129,6 @@ public class DoctorListActivity extends AppCompatActivity {
     }
 
 
-
 //    private void loadListData() {
 //        mymensingh_div_service_name_list = Arrays.asList(getResources().getStringArray(R.array.mymensingh_div_service_name_list));
 ////        home_module_name_ban_list = Arrays.asList(getResources().getStringArray(R.array.home_module_name_ban_list));
@@ -116,7 +143,6 @@ public class DoctorListActivity extends AppCompatActivity {
     }
 
 
-
     private void loadRecyclerView() {
         adapter = new DoctorListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
@@ -128,15 +154,15 @@ public class DoctorListActivity extends AppCompatActivity {
 
 
     private void filter(String text) {
-        List<String> filteredList = new ArrayList<>();
+        List<DoctorListModel.Doctor> filteredList = new ArrayList<>();
 //        List<String> filteredListBan = new ArrayList<>();
         List<String> filteredListImg = new ArrayList<>();
         List<Integer> filteredPosition = new ArrayList<>();
 
-        for (String item : mymensingh_div_service_name_list) {
-            if (item.toLowerCase().contains(text.toLowerCase())) {
+        for (DoctorListModel.Doctor item : doctorList) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
-                filteredPosition.add(mymensingh_div_service_name_list.indexOf(item));
+                filteredPosition.add(doctorList.indexOf(item));
             }
         }
 
@@ -146,9 +172,8 @@ public class DoctorListActivity extends AppCompatActivity {
         }
 
 //        adapter.filterList(filteredList, filteredListBan, filteredListImg);
-        adapter.filterList(filteredList, filteredListImg);
+        adapter.filterList(filteredList);
     }
-
 
 
     @SuppressLint("CheckResult")
@@ -156,43 +181,68 @@ public class DoctorListActivity extends AppCompatActivity {
 
         showProgressDialog();
 
-//        String token = SharedData.getTOKEN(this);
-//        Log.d("tag11111", " token: " + token);
-//        Log.d("tag11111", " speciality_division: " + speciality_division);
-////        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMTcyMjg2ODYzNSIsImlhdCI6MTU5MTI1NzI1OCwiZXhwIjoxNTkzODQ5MjU4fQ.QMYwyRhEcc8WHCwTMyg9nWHwudeKx1w8P2K4GeSYIx50bjFxta0iSuP9W_gEfIgJbX3Hffl85T5qI7Ecj-V7fA";
-//        String authorization = "Bearer" + " " + token;
-//        String accept = "application/json";
-//
-////        RetrofitApiClient.getApiInterface().get_specialist_doctor_single_division_list(authorization, "HEART")
-//        RetrofitApiClient.getApiInterface().get_specialist_doctor_single_division_list(authorization, speciality_division, "P")
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(response -> {
-//                            Log.d("tag11111", " response.code(): " + response.code());
-//
-//
-//
-//                            if (response.code() == 401) {
-//                                Intent intent = new Intent(DoctorListActivity.this, LoginActivity.class);
-//                                intent.putExtra("SENDER_ACTIVITY_NAME", "");
-//                                startActivity(intent);
-//                            }
-//
-//
-//
-//                            if (response.isSuccessful()) {
-//                                closeProgressDialog();
-//
-//                                response.body(); // do something with that
-//                                Log.d("tag11111", " response.body(): " + response.body());
-//
-//                                SpecialistDoctor specialistDoctor = response.body();
-//
+        String token = SharedData.getTOKEN(this);
+        Log.d("tag11111", " token: " + token);
+        Log.d("tag11111", " speciality_division: " + speciality_division);
+//        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMTcyMjg2ODYzNSIsImlhdCI6MTU5MTI1NzI1OCwiZXhwIjoxNTkzODQ5MjU4fQ.QMYwyRhEcc8WHCwTMyg9nWHwudeKx1w8P2K4GeSYIx50bjFxta0iSuP9W_gEfIgJbX3Hffl85T5qI7Ecj-V7fA";
+        String authorization = "Bearer" + " " + token;
+        String accept = "application/json";
+
+//        RetrofitApiClient.getApiInterface().get_specialist_doctor_single_division_list(authorization, "HEART")
+        RetrofitApiClient.getApiInterface().doctors(authorization, accept, speciality_division)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                            Log.d("tag11111", " response.code(): " + response.code());
+
+
+                            if (response.code() == 401) {
+                                Intent intent = new Intent(DoctorListActivity.this, LoginActivity.class);
+                                intent.putExtra("SENDER_ACTIVITY_NAME", "");
+                                startActivity(intent);
+                            }
+
+                            if (response.code() == 200) {
+
+                                DoctorListModel model = response.body();
+
+                                String responseString = response.message();
+
+                                doctorList = model.getDoctorList();
+
+                                adapter.setData(doctorList);
+                                adapter.notifyDataSetChanged();
+
+
+                            } else {
+                                new MaterialDialog.Builder(DoctorListActivity.this)
+                                        .title("Doctor Status")
+                                        .content("List is empty....")
+                                        .positiveText("")
+                                        .negativeText("Ok")
+                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                            @Override
+                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                            }
+                                        })
+                                        .show();
+                            }
+
+
+                            if (response.isSuccessful()) {
+                                closeProgressDialog();
+
+                                response.body(); // do something with that
+                                Log.d("tag11111", " response.body(): " + response.body());
+
+                                DoctorListModel specialistDoctor = response.body();
+
 //                                if (response.code() == 200) {
 //
 //                                    String responseString = response.message();
 //
-//                                    List<SpecialistDoctor.Division> doctorList = specialistDoctor.getData().get(0).getDivision();
+//                                    List<DoctorListModel.Division> doctorList = specialistDoctor.getData().get(0).getDivision();
 //
 //                                    divisionWiseDoctorAdapter.setData2(doctorList);
 //                                    divisionWiseDoctorAdapter.notifyDataSetChanged();
@@ -212,21 +262,22 @@ public class DoctorListActivity extends AppCompatActivity {
 //                                            })
 //                                            .show();
 //                                }
-//
-//                            } else {
-//
-//                            }
-//
-//
-//                        },
-//                        error -> {
-//
-//
-//                        },
-//                        () -> {
-//
-//                        }
-//                );
+
+                            } else {
+
+                            }
+
+
+                        },
+                        error -> {
+
+                            Log.d("tag11111", " response.code(): " + error.toString());
+
+                        },
+                        () -> {
+
+                        }
+                );
 
 
     }
@@ -244,10 +295,6 @@ public class DoctorListActivity extends AppCompatActivity {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
     }
-
-
-
-
 
 
 }
