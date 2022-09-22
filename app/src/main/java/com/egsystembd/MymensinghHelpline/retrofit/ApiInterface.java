@@ -1,5 +1,6 @@
 package com.egsystembd.MymensinghHelpline.retrofit;
 
+import com.egsystembd.MymensinghHelpline.model.DoctorDetailsModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
 import com.egsystembd.MymensinghHelpline.model.LoginModel;
 import com.egsystembd.MymensinghHelpline.model.RegisterModel;
@@ -70,7 +71,6 @@ public interface ApiInterface {
     );
 
 
-
     @FormUrlEncoded
     @POST(Api.user_login)
     Observable<Response<LoginModel>> user_login(@Header("authorization") String authorization,
@@ -82,12 +82,26 @@ public interface ApiInterface {
     );
 
 
-
     @GET(Api.doctors)
     Observable<Response<DoctorListModel>> doctors(@Header("authorization") String authorization,
                                                   @Header("Accept") String accept,
                                                   @Query("department") String department
 
+    );
+
+
+//    @GET(Api.doctors_details)
+//    Observable<Response<DoctorDetailsModel>> doctorDetailsById(@Header("authorization") String authorization,
+//                                                               @Header("Accept") String accept,
+//                                                               @Query("doctor_id") String doctor_id
+//
+//    );
+
+    @Headers("Content-Type: application/json")
+    @GET()
+    Observable<Response<DoctorDetailsModel>> doctorDetailsById(@Url String urlString,
+                                                               @Header("Authorization") String authorization,
+                                                               @Header("Accept") String accept
     );
 
 

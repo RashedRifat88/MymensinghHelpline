@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     boolean passwordVissible;
     private ConstraintLayout lay_pass;
     private ImageView iv_hi;
-    private TextView tv_Terms_conditions, tv_sign_up, tv_sign_in, tv_forgot_password;
+    private TextView tv_Terms_conditions, tv_sign_up, tv_log_in, tv_forgot_password;
     private EditText etFullName, etEmail, etPhoneNumber, etPassword;
     private boolean nameIsEmpty = true;
     private boolean emailIsEmpty = true;
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         lay_pass = findViewById(R.id.lay_pass);
 
         tv_sign_up = findViewById(R.id.tv_sign_up);
-        tv_sign_in = findViewById(R.id.tv_sign_in);
+        tv_log_in = findViewById(R.id.tv_log_in);
         tv_forgot_password = findViewById(R.id.tv_forgot_password);
         tv_Terms_conditions = findViewById(R.id.tv_Terms_conditions);
 
@@ -219,7 +219,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        tv_sign_in.setOnClickListener(view -> {
+        tv_log_in.setOnClickListener(view -> {
             hideKeyboard();
 
             if (!emailIsEmpty && !passwordIsEmpty) {
@@ -279,17 +279,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkSignupButtonActive() {
         if (!emailIsEmpty && !passwordIsEmpty) {
-            tv_sign_in.setBackground(getResources().getDrawable(R.drawable.rounded_corner1));
-            tv_sign_in.setPadding(45, 45, 45, 45);
+            tv_log_in.setBackground(getResources().getDrawable(R.drawable.rounded_corner1));
+            tv_log_in.setPadding(45, 45, 45, 45);
 
-//            tv_sign_in.setOnClickListener(view -> {
+//            tv_log_in.setOnClickListener(view -> {
 //                Intent intent = new Intent(LoginActivity.this, FavouriteTopicPickActivity.class);
 //                startActivity(intent);
 //            });
 
         } else {
-            tv_sign_in.setBackground(getResources().getDrawable(R.drawable.rounded_corner5));
-            tv_sign_in.setPadding(45, 45, 45, 45);
+            tv_log_in.setBackground(getResources().getDrawable(R.drawable.rounded_corner5));
+            tv_log_in.setPadding(45, 45, 45, 45);
         }
     }
 

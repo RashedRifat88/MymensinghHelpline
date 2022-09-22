@@ -59,8 +59,8 @@ public class HomeFragment extends Fragment {
 
         initView(root);
 
-        loadListData();
         initComponent();
+        loadListData();
 
         loadRecyclerView();
 
@@ -77,10 +77,15 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        loadListData();
+//        loadRecyclerView();
+    }
 
-        loadListData();
-        loadRecyclerView();
-
+    @Override
+    public void onAttach(Context context) {
+        Log.d("TAG5566",
+                "onAttach: ");
+        super.onAttach(context);
     }
 
 
@@ -118,22 +123,22 @@ public class HomeFragment extends Fragment {
 
     private void initView(View root) {
 
-        binding.etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                filter(s.toString());
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filter(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                filter(s.toString());
-            }
-        });
+//        binding.etSearch.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                filter(s.toString());
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                filter(s.toString());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                filter(s.toString());
+//            }
+//        });
     }
 
     private void topSlider() {
@@ -165,6 +170,10 @@ public class HomeFragment extends Fragment {
 
         loadListData();
 
+        home_module_name_eng_list = Arrays.asList(getResources().getStringArray(R.array.home_module_name_eng_list));
+//        home_module_name_ban_list = Arrays.asList(getResources().getStringArray(R.array.home_module_name_ban_list));
+        home_module_image_list = Arrays.asList(getResources().getStringArray(R.array.home_module_image_list));
+
         homeModuleAdapter = new HomeModuleAdapter(getActivity());
         binding.recyclerView.setAdapter(homeModuleAdapter);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 4);
@@ -193,7 +202,6 @@ public class HomeFragment extends Fragment {
 //            filteredListImg.add(home_module_image_list.get(position));
 //        }
 
-//        homeModuleAdapter.filterList(filteredList, filteredListBan, filteredListImg);
         homeModuleAdapter.filterList(filteredList, filteredListImg);
     }
 

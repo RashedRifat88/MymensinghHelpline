@@ -37,12 +37,12 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:layout_marginTop="0dp"
                         android:fontFamily="@font/poppins"
-                        android:gravity="left"
+                        android:gravity="center"
                         android:text="Welcome"
                         android:textAllCaps="true"
                         android:textColor="@color/colorPrimary"
@@ -357,7 +357,7 @@
 
 
             <TextView
-                android:id="@+id/tv_sign_in"
+                android:id="@+id/tv_log_in"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -370,7 +370,7 @@
                 android:minHeight="54dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:text="Sign In"
+                android:text="Log In"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 tools:ignore="MissingConstraints" />

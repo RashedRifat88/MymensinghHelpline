@@ -92,7 +92,7 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
     @Override
     public DoctorDepartmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.single_item_home_module_list, parent, false);
+                .inflate(R.layout.single_item_doctor_department_list, parent, false);
         DoctorDepartmentViewHolder myViewHolder = new DoctorDepartmentViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

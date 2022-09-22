@@ -11,5 +11,11 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="description">Description</string>
+    <string name="available_on">Available On</string>
+    <string name="doctor_fee">Doctor Fee</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_my_history">My History</string>
 
 </resources>

@@ -184,7 +184,6 @@ public class DoctorListActivity extends AppCompatActivity {
         String token = SharedData.getTOKEN(this);
         Log.d("tag11111", " token: " + token);
         Log.d("tag11111", " speciality_division: " + speciality_division);
-//        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIwMTcyMjg2ODYzNSIsImlhdCI6MTU5MTI1NzI1OCwiZXhwIjoxNTkzODQ5MjU4fQ.QMYwyRhEcc8WHCwTMyg9nWHwudeKx1w8P2K4GeSYIx50bjFxta0iSuP9W_gEfIgJbX3Hffl85T5qI7Ecj-V7fA";
         String authorization = "Bearer" + " " + token;
         String accept = "application/json";
 
@@ -202,32 +201,6 @@ public class DoctorListActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
 
-                            if (response.code() == 200) {
-
-                                DoctorListModel model = response.body();
-
-                                String responseString = response.message();
-
-                                doctorList = model.getDoctorList();
-
-                                adapter.setData(doctorList);
-                                adapter.notifyDataSetChanged();
-
-
-                            } else {
-                                new MaterialDialog.Builder(DoctorListActivity.this)
-                                        .title("Doctor Status")
-                                        .content("List is empty....")
-                                        .positiveText("")
-                                        .negativeText("Ok")
-                                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                            @Override
-                                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                                            }
-                                        })
-                                        .show();
-                            }
 
 
                             if (response.isSuccessful()) {
@@ -238,30 +211,32 @@ public class DoctorListActivity extends AppCompatActivity {
 
                                 DoctorListModel specialistDoctor = response.body();
 
-//                                if (response.code() == 200) {
-//
-//                                    String responseString = response.message();
-//
-//                                    List<DoctorListModel.Division> doctorList = specialistDoctor.getData().get(0).getDivision();
-//
-//                                    divisionWiseDoctorAdapter.setData2(doctorList);
-//                                    divisionWiseDoctorAdapter.notifyDataSetChanged();
-//
-//
-//                                } else {
-//                                    new MaterialDialog.Builder(DoctorListActivity.this)
-//                                            .title("Doctor Status")
-//                                            .content("List is empty....")
-//                                            .positiveText("")
-//                                            .negativeText("Ok")
-//                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-//                                                @Override
-//                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//
-//                                                }
-//                                            })
-//                                            .show();
-//                                }
+                                if (response.code() == 200) {
+
+                                    DoctorListModel model = response.body();
+
+                                    String responseString = response.message();
+
+                                    doctorList = model.getDoctorList();
+
+                                    adapter.setData(doctorList);
+                                    adapter.notifyDataSetChanged();
+
+
+                                } else {
+                                    new MaterialDialog.Builder(DoctorListActivity.this)
+                                            .title("Doctor Status")
+                                            .content("List is empty....")
+                                            .positiveText("")
+                                            .negativeText("Ok")
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                                }
+                                            })
+                                            .show();
+                                }
 
                             } else {
 

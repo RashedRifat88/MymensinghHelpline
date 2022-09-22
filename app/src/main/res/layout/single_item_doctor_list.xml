@@ -5,21 +5,23 @@
     android:id="@+id/linear1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="0dp"
-    android:layout_marginTop="0dp"
-    android:layout_marginRight="0dp"
-    android:layout_marginBottom="0dp"
-    android:minHeight="75dp"
+    android:background="@drawable/rounded_corner21"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_marginLeft="1dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginRight="1dp"
+    android:layout_marginBottom="2dp"
     android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="1dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="1dp"
         android:layout_marginRight="1dp"
-        android:layout_marginBottom="3dp"
-        android:minHeight="75dp"
+        android:layout_marginBottom="1dp"
+        android:minHeight="70dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -27,14 +29,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="1dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:gravity="center"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:id="@+id/iv_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_margin="0dp"
                 android:padding="3dp"
@@ -59,9 +61,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="No Name"
+                android:fontFamily="@font/roboto_bold"
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/tv_doctor_speciality"
@@ -69,8 +72,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:paddingLeft="2dp"
-                android:text="xcxc"
-                android:textColor="@color/colorGray"
+                android:text="speciality"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/green_400"
                 android:textSize="13sp" />
 
             <TextView
@@ -79,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:paddingLeft="1dp"
-                android:text="cxcxc"
+                android:text="degree"
+                android:fontFamily="@font/roboto_regular"
                 android:textColor="@color/colorBlack"
                 android:textSize="13sp" />
 
@@ -90,9 +95,10 @@
                 android:layout_marginTop="0dp"
                 android:paddingLeft="1dp"
                 android:text="Fee: "
+                android:fontFamily="@font/roboto_regular"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
 
 
             <LinearLayout
@@ -155,8 +161,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_marginTop="0dp"
                     android:text=""
                     android:textSize="20sp"
@@ -170,20 +176,22 @@
                     android:text=""
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="11sp" />
+
+
             </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/linearVideoCall"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="3dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/linearVideoCall"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_marginLeft="0dp"-->
+<!--                android:layout_marginTop="3dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:clickable="true"-->
+<!--                android:foreground="?android:attr/selectableItemBackground"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal">-->
 
 <!--                <ImageView-->
 <!--                    android:layout_width="24dp"-->
@@ -202,7 +210,7 @@
 <!--                    android:textColor="@color/colorPrimaryDark"-->
 <!--                    android:textSize="11sp" />-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
 
             <!--            </LinearLayout>-->

@@ -34,6 +34,12 @@ public class DoctorListModel {
         @SerializedName("speciality")
         @Expose
         private String speciality;
+        @SerializedName("degree")
+        @Expose
+        private String degree;
+        @SerializedName("fee")
+        @Expose
+        private String fee;
         @SerializedName("room")
         @Expose
         private String room;
@@ -77,6 +83,22 @@ public class DoctorListModel {
 
         public void setSpeciality(String speciality) {
             this.speciality = speciality;
+        }
+
+        public String getDegree() {
+            return degree;
+        }
+
+        public void setDegree(String degree) {
+            this.degree = degree;
+        }
+
+        public String getFee() {
+            return fee;
+        }
+
+        public void setFee(String fee) {
+            this.fee = fee;
         }
 
         public String getRoom() {
