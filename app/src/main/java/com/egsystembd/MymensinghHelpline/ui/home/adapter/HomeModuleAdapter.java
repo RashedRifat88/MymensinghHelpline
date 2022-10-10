@@ -33,6 +33,8 @@ import com.bumptech.glide.Glide;
 import com.egsystembd.MymensinghHelpline.R;
 import com.egsystembd.MymensinghHelpline.model.HomeModuleModel;
 import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.DoctorDepartmentActivity;
+import com.egsystembd.MymensinghHelpline.ui.home.home_pathology.HomePathologyActivity;
+import com.egsystembd.MymensinghHelpline.ui.home.hospital_clinic.HospitalAndClinicActivity;
 import com.egsystembd.MymensinghHelpline.ui.home.mymensingh_division.MymensinghDivisionActivity;
 
 import java.text.ParseException;
@@ -186,6 +188,16 @@ public class HomeModuleAdapter extends RecyclerView.Adapter<HomeModuleAdapter.Ho
         card1.setOnClickListener(view -> {
             if (position == 0) {
                 Intent intent = new Intent(context, DoctorDepartmentActivity.class);
+                context.startActivity(intent);
+            }
+
+            if (position == 1) {
+                Intent intent = new Intent(context, HomePathologyActivity.class);
+                context.startActivity(intent);
+            }
+
+            if (position == 2) {
+                Intent intent = new Intent(context, HospitalAndClinicActivity.class);
                 context.startActivity(intent);
             }
 

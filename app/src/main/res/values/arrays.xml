@@ -71,12 +71,12 @@
         <item>Government Institution</item>
         <item>Educational Institution</item>
         <item>Social Institution</item>
-        <!--        <item>Library</item>-->
         <item>Hotel and Restaurent</item>
         <item>Bus and Train</item>
         <item>IT Institute</item>
         <item>Show Rooms</item>
         <item>Places of Interest</item>
+        <!--        <item>Library</item>-->
     </string-array>
 
     <string-array name="mymensingh_div_service_image_list">

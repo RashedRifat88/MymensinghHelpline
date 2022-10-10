@@ -3,6 +3,9 @@ package com.egsystembd.MymensinghHelpline.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
+
 public class DoctorDetailsModel {
 
     @SerializedName("id")
@@ -26,6 +29,15 @@ public class DoctorDetailsModel {
     @SerializedName("fee")
     @Expose
     private String fee;
+    @SerializedName("available_days")
+    @Expose
+    private List<String> availableDays = null;
+    @SerializedName("experience")
+    @Expose
+    private String experience;
+    @SerializedName("hospital")
+    @Expose
+    private String hospital;
     @SerializedName("room")
     @Expose
     private String room;
@@ -87,6 +99,30 @@ public class DoctorDetailsModel {
 
     public void setFee(String fee) {
         this.fee = fee;
+    }
+
+    public List<String> getAvailableDays() {
+        return availableDays;
+    }
+
+    public void setAvailableDays(List<String> availableDays) {
+        this.availableDays = availableDays;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
     }
 
     public String getRoom() {

@@ -1,4 +1,4 @@
-package com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.adapter;
+package com.egsystembd.MymensinghHelpline.ui.home.home_pathology.adapter;
 
 
 import android.annotation.SuppressLint;
@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.egsystembd.MymensinghHelpline.R;
-import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.DoctorListActivity;
+import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
+import com.egsystembd.MymensinghHelpline.retrofit.Api;
+import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.DoctorDetailsActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,11 +30,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartmentAdapter.DoctorDepartmentViewHolder> {
+public class HomePathologyAdapter extends RecyclerView.Adapter<HomePathologyAdapter.DoctorListViewHolder> {
 
-    List<String> name_list = new ArrayList<>();
+    List<DoctorListModel.Doctor> doctorList = new ArrayList<>();
     List<String> home_module_name_ban_list = new ArrayList<>();
-    List<String> image_list = new ArrayList<>();
+    List<String> home_module_image_list = new ArrayList<>();
     Context context;
 
     Cursor dataCursor;
@@ -50,7 +52,7 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
 
     private AdapterCallback adapterCallback;
 
-    public DoctorDepartmentAdapter(Context context) {
+    public HomePathologyAdapter(Context context) {
         this.context = context;
 
 //        try {
@@ -62,24 +64,20 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
     }
 
 
-    public void setData(List<String> name_list, List<String> image_list) {
-        this.name_list = name_list;
+    public void setData(List<DoctorListModel.Doctor> doctorList) {
+        this.doctorList = doctorList;
 //        this.home_module_name_ban_list = home_module_name_ban_list;
-        this.image_list = image_list;
     }
 
-    public void filterList(List<String> name_list, List<String> image_list) {
-        this.name_list = name_list;
-//        this.home_module_name_ban_list = home_module_name_ban_list;
-        this.image_list = image_list;
-
+    public void filterList(List<DoctorListModel.Doctor> doctorList) {
+        this.doctorList = doctorList;
         notifyDataSetChanged();
     }
 
 
     @Override
     public int getItemCount() {
-        return name_list.size();
+        return doctorList.size();
     }
 
 
@@ -90,10 +88,10 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
 
 
     @Override
-    public DoctorDepartmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DoctorListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.single_item_doctor_department_list, parent, false);
-        DoctorDepartmentViewHolder myViewHolder = new DoctorDepartmentViewHolder(view);
+                .inflate(R.layout.single_item_doctor_list, parent, false);
+        DoctorListViewHolder myViewHolder = new DoctorListViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,14 +103,14 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
 
 
     @Override
-    public void onBindViewHolder(final DoctorDepartmentAdapter.DoctorDepartmentViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(final HomePathologyAdapter.DoctorListViewHolder holder, @SuppressLint("RecyclerView") int position) {
 //        TextView txtSlNo = holder.txtSlNo;
 //        TextView tv_time_left_in_days = holder.tv_time_left_in_days;
 //        TextView tv_time_left = holder.tv_time_left;
 //        TextView tv_name = holder.tv_name;
 //        TextView tv_expire_date = holder.tv_expire_date;
 //
-//        LinearLayout linear1 = holder.linear1;
+        LinearLayout linear1 = holder.linear1;
 //        LinearLayout linear2 = holder.linear2;
 //        RelativeLayout relative1 = holder.relative1;
 //        ImageView imageView = holder.imageView;
@@ -123,8 +121,11 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
         ImageView iv_circle = holder.iv_circle;
         ImageView iv_1 = holder.iv_1;
 
-        TextView tv_title = holder.tv_title;
-        TextView tv_title_ban = holder.tv_title_ban;
+        TextView tv_doctor_name = holder.tv_doctor_name;
+        TextView tv_doctor_speciality = holder.tv_doctor_speciality;
+        TextView tv_doctor_degree = holder.tv_doctor_degree;
+        TextView tv_doctor_fee = holder.tv_doctor_fee;
+        TextView tv_doctor_name_ban = holder.tv_doctor_name_ban;
 
         CardView card1 = holder.card1;
 
@@ -133,15 +134,28 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
 ////        cardview.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fall_down_animation));
 //
 //
-        String title = name_list.get(position);
-//        String title_ban = home_module_name_ban_list.get(position);
-        String image = image_list.get(position);
+        DoctorListModel.Doctor doctor = doctorList.get(position);
 
-        tv_title.setText(title);
-//        tv_title_ban.setText(title_ban);
+
+        String doctorId = doctor.getId().toString();
+        String name = doctor.getName();
+        String speciality = doctor.getSpeciality();
+        String degree = doctor.getDegree();
+        String fee = doctor.getFee();
+
+        tv_doctor_name.setText(name);
+        tv_doctor_speciality.setText(speciality);
+        tv_doctor_degree.setText(degree);
+        tv_doctor_fee.setText("Fee: "+ fee);
+
+        String imageUrl = Api.BASE_URL_IMAGE_ASSET + doctor.getImage();
+        Glide.with(context).load(imageUrl).into(iv_1);
+
+
+//        tv_doctor_name_ban.setText(title_ban);
 //        iv_circle.setColorFilter(ContextCompat.getColor(context, R.color.light_blue_100), android.graphics.PorterDuff.Mode.SRC_IN);
-        Glide.with(context).load(image).into(iv_1);
-//
+//        Glide.with(context).load(title.getName()).into(iv_1);
+
 //        int aPosition = position + 1;
 //
 //        if (aPosition % 5 == 1) {
@@ -164,14 +178,20 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
 
 //        String name = subscription.getName();
 
-        card1.setOnClickListener(view -> {
-            int VideoPlaylistActivity_code = 1;
+//        card1.setOnClickListener(view -> {
+//            int VideoPlaylistActivity_code = 1;
+//
+////            Intent intent = new Intent(context, DoctorListActivity.class);
+////            intent.putExtra("title", doctorInfo);
+////            intent.putExtra("title_code", title_code);
+////            context.startActivity(intent);
+//
+//        });
 
-            Intent intent = new Intent(context, DoctorListActivity.class);
-            intent.putExtra("title", title);
-            intent.putExtra("fromWhere", "DoctorDepartmentAdapter");
+        linear1.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DoctorDetailsActivity.class);
+            intent.putExtra("doctor_id", doctorId);
             context.startActivity(intent);
-
         });
 
     }
@@ -200,11 +220,14 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
 
 
 
-    class DoctorDepartmentViewHolder extends RecyclerView.ViewHolder {
+    class DoctorListViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtSlNo;
-        TextView tv_title;
-        TextView tv_title_ban;
+        TextView tv_doctor_name;
+        TextView tv_doctor_speciality;
+        TextView tv_doctor_degree;
+        TextView tv_doctor_fee;
+        TextView tv_doctor_name_ban;
 
         LinearLayout linear1;
         LinearLayout linear2;
@@ -216,17 +239,19 @@ public class DoctorDepartmentAdapter extends RecyclerView.Adapter<DoctorDepartme
         CardView card1;
         ProgressBar progressBar;
 
-        public DoctorDepartmentViewHolder(View itemView) {
+        public DoctorListViewHolder(View itemView) {
             super(itemView);
-            tv_title = itemView.findViewById(R.id.tv_title);
-            tv_title_ban = itemView.findViewById(R.id.tv_title_ban);
+            tv_doctor_name = itemView.findViewById(R.id.tv_doctor_name);
+            tv_doctor_speciality = itemView.findViewById(R.id.tv_doctor_speciality);
+            tv_doctor_degree = itemView.findViewById(R.id.tv_doctor_degree);
+            tv_doctor_fee = itemView.findViewById(R.id.tv_doctor_fee);
 
             iv_circle = itemView.findViewById(R.id.iv_circle);
             iv_1 = itemView.findViewById(R.id.iv_1);
 
             card1 = itemView.findViewById(R.id.card1);
 
-//            linear1 = itemView.findViewById(R.id.linear1);
+            linear1 = itemView.findViewById(R.id.linear1);
 //            linear2 = itemView.findViewById(R.id.linear2);
 //
 //            progressBar = itemView.findViewById(R.id.progressBar);

@@ -1,27 +1,4 @@
-package com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list;
-
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.text.style.ClickableSpan;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+package com.egsystembd.MymensinghHelpline.ui.home.hospital_clinic;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,44 +20,40 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.egsystembd.MymensinghHelpline.R;
 import com.egsystembd.MymensinghHelpline.credential.LoginActivity;
 import com.egsystembd.MymensinghHelpline.data.SharedData;
-import com.egsystembd.MymensinghHelpline.databinding.ActivityDoctorListBinding;
+import com.egsystembd.MymensinghHelpline.databinding.ActivityHospitalAndClinicBinding;
 import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
-import com.egsystembd.MymensinghHelpline.retrofit.Api;
+import com.egsystembd.MymensinghHelpline.model.HospitalListModel;
 import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
 import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.adapter.DoctorListAdapter;
-
+import com.egsystembd.MymensinghHelpline.ui.home.hospital_clinic.adapter.HospitalListAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class DoctorListActivity extends AppCompatActivity {
+public class HospitalAndClinicActivity extends AppCompatActivity {
 
-    private ActivityDoctorListBinding binding;
-    private DoctorListAdapter adapter;
+    private ActivityHospitalAndClinicBinding binding;
+    private HospitalListAdapter adapter;
 
     List<String> mymensingh_div_service_name_list;
     List<String> home_module_name_ban_list = new ArrayList<>();
     List<String> mymensingh_div_service_image_list;
 
     private String title = "";
-    private String fromWhere = "";
-    List<DoctorListModel.Doctor> doctorList;
-
+    List<HospitalListModel.Hospital> doctorList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityDoctorListBinding.inflate(getLayoutInflater());
+        binding = ActivityHospitalAndClinicBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         title = getIntent().getStringExtra("title");
-        fromWhere = getIntent().getStringExtra("fromWhere");
-        binding.tvTitle.setText(title);
+//        binding.tvTitle.setText(title);
 
         initStatusBar();
 //        loadListData();
@@ -89,12 +62,9 @@ public class DoctorListActivity extends AppCompatActivity {
 
         loadRecyclerView();
 
-        if (fromWhere.equalsIgnoreCase("HospitalListAdapter")) {
-            loadDoctorListByHospital(title);
-        } else {
-            loadDoctorList("");
-        }
-
+        Log.d("tag11111", " token: " + "dfdfdf");
+        loadDoctorList("");
+        Log.d("tag11111", " token after: " + "dfdfdf");
 
     }
 
@@ -151,7 +121,7 @@ public class DoctorListActivity extends AppCompatActivity {
 
 
     private void loadRecyclerView() {
-        adapter = new DoctorListAdapter(this);
+        adapter = new HospitalListAdapter(this);
         binding.recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         binding.recyclerView.setLayoutManager(mLayoutManager);
@@ -161,13 +131,13 @@ public class DoctorListActivity extends AppCompatActivity {
 
 
     private void filter(String text) {
-        List<DoctorListModel.Doctor> filteredList = new ArrayList<>();
+        List<HospitalListModel.Hospital> filteredList = new ArrayList<>();
 //        List<String> filteredListBan = new ArrayList<>();
         List<String> filteredListImg = new ArrayList<>();
         List<Integer> filteredPosition = new ArrayList<>();
 
-        for (DoctorListModel.Doctor item : doctorList) {
-            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+        for (HospitalListModel.Hospital item : doctorList) {
+            if (item.getHospital().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
                 filteredPosition.add(doctorList.indexOf(item));
             }
@@ -194,8 +164,7 @@ public class DoctorListActivity extends AppCompatActivity {
         String authorization = "Bearer" + " " + token;
         String accept = "application/json";
 
-//        RetrofitApiClient.getApiInterface().get_specialist_doctor_single_division_list(authorization, "HEART")
-        RetrofitApiClient.getApiInterface().doctors(authorization, accept, speciality_division)
+        RetrofitApiClient.getApiInterface().hospitals(authorization, accept)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -203,10 +172,11 @@ public class DoctorListActivity extends AppCompatActivity {
 
 
                             if (response.code() == 401) {
-                                Intent intent = new Intent(DoctorListActivity.this, LoginActivity.class);
+                                Intent intent = new Intent(HospitalAndClinicActivity.this, LoginActivity.class);
                                 intent.putExtra("SENDER_ACTIVITY_NAME", "");
                                 startActivity(intent);
                             }
+
 
 
                             if (response.isSuccessful()) {
@@ -215,104 +185,22 @@ public class DoctorListActivity extends AppCompatActivity {
                                 response.body(); // do something with that
                                 Log.d("tag11111", " response.body(): " + response.body());
 
-                                DoctorListModel specialistDoctor = response.body();
+                                HospitalListModel specialistDoctor = response.body();
 
                                 if (response.code() == 200) {
 
-                                    DoctorListModel model = response.body();
+                                    HospitalListModel model = response.body();
 
                                     String responseString = response.message();
 
-                                    doctorList = model.getDoctorList();
+                                    doctorList = model.getHospitalList();
 
                                     adapter.setData(doctorList);
                                     adapter.notifyDataSetChanged();
 
 
                                 } else {
-                                    new MaterialDialog.Builder(DoctorListActivity.this)
-                                            .title("Doctor Status")
-                                            .content("List is empty....")
-                                            .positiveText("")
-                                            .negativeText("Ok")
-                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                                @Override
-                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                                                }
-                                            })
-                                            .show();
-                                }
-
-                            } else {
-
-                            }
-
-
-                        },
-                        error -> {
-
-                            Log.d("tag11111", " response.code(): " + error.toString());
-
-                        },
-                        () -> {
-
-                        }
-                );
-
-
-    }
-
-
-    @SuppressLint("CheckResult")
-    public void loadDoctorListByHospital(String hospitalName) {
-
-        showProgressDialog();
-
-        String token = SharedData.getTOKEN(this);
-        Log.d("tag11111", " token: " + token);
-        Log.d("tag11111", " hospitalName: " + hospitalName);
-        String authorization = "Bearer" + " " + token;
-        String accept = "application/json";
-
-        String url = Api.BASE_URL + Api.doctor_list + "/" + hospitalName;
-
-        RetrofitApiClient.getApiInterface().doctorsByHospital(url, authorization, accept, hospitalName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                            Log.d("tag11111", " response.code(): " + response.code());
-
-
-                            if (response.code() == 401) {
-                                Intent intent = new Intent(DoctorListActivity.this, LoginActivity.class);
-                                intent.putExtra("SENDER_ACTIVITY_NAME", "");
-                                startActivity(intent);
-                            }
-
-
-                            if (response.isSuccessful()) {
-                                closeProgressDialog();
-
-                                response.body(); // do something with that
-                                Log.d("tag11111", " response.body(): " + response.body());
-
-                                DoctorListModel specialistDoctor = response.body();
-
-                                if (response.code() == 200) {
-
-                                    DoctorListModel model = response.body();
-
-                                    String responseString = response.message();
-
-                                    doctorList = model.getDoctorList();
-
-                                    adapter.setData(doctorList);
-                                    adapter.notifyDataSetChanged();
-
-
-                                } else {
-                                    new MaterialDialog.Builder(DoctorListActivity.this)
+                                    new MaterialDialog.Builder(HospitalAndClinicActivity.this)
                                             .title("Doctor Status")
                                             .content("List is empty....")
                                             .positiveText("")
@@ -358,6 +246,5 @@ public class DoctorListActivity extends AppCompatActivity {
         if (progressDialog.isShowing())
             progressDialog.dismiss();
     }
-
 
 }

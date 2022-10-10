@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +39,8 @@ import com.egsystembd.MymensinghHelpline.model.DoctorDetailsModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
 import com.egsystembd.MymensinghHelpline.retrofit.Api;
 import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
+import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.adapter.AvailableDaysAdapter;
+import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.adapter.DoctorListAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,6 +71,9 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     public static RecyclerView recyclerView1;
     public static RecyclerView recyclerView2;
     public static RecyclerView recyclerView3;
+
+    private AvailableDaysAdapter adapter;
+    List<String> availableDayList = new ArrayList<>();
 
     public String video_call_initiate = "";
     public String video_call_check_status_url = "";
@@ -203,7 +209,13 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                                     doctorFee = model.getFee();
 
                                     String imageUrl = Api.BASE_URL_IMAGE_ASSET + model.getImage();
-                                    Glide.with(this).load(imageUrl).into(imageView);
+                                    if (model.getImage() == null || model.getImage().isEmpty()){
+                                        imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_doctor1));
+                                    }else {
+                                        Glide.with(this).load(imageUrl).into(imageView);
+                                    }
+
+//                                    Glide.with(this).load(imageUrl).into(imageView);
 
                                     Log.d("tag11111", " responseString: " + responseString);
                                     Log.d("tag11111", " doctor_name: " + doctor_name);
@@ -239,10 +251,10 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                                     setDoctorData();
 
 
-//                                    doctorList = model.getDoctorList();
-//
-//                                    adapter.setData(doctorList);
-//                                    adapter.notifyDataSetChanged();
+                                    availableDayList = model.getAvailableDays();
+
+                                    adapter.setData(availableDayList);
+                                    adapter.notifyDataSetChanged();
 
 
                                 } else {
@@ -334,13 +346,13 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 
 
     private void loadRecyclerView() {
-//        appointmentScheduleAdapter = new SpecialistDoctorAppointmentScheduleAdapter(this);
-//        recyclerView1.setAdapter(appointmentScheduleAdapter);
-//        RecyclerView.LayoutManager mLayoutManager =
-//                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false); // Set Horizontal Layout Manager for Recycler view
-//        recyclerView1.setLayoutManager(mLayoutManager);
-////        appointmentScheduleAdapter.setData2(doctorDateList, doctorTimeSlotNumberList, doctor_name);
-//        appointmentScheduleAdapter.notifyDataSetChanged();
+        adapter = new AvailableDaysAdapter(this);
+        recyclerView1.setAdapter(adapter);
+        RecyclerView.LayoutManager mLayoutManager =
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false); // Set Horizontal Layout Manager for Recycler view
+        recyclerView1.setLayoutManager(mLayoutManager);
+//        adapter.setData2(doctorDateList, doctorTimeSlotNumberList, doctor_name);
+        adapter.notifyDataSetChanged();
     }
 
 

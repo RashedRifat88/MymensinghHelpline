@@ -31,7 +31,12 @@
         android:theme="@style/Theme.MymensinghHelpline"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.home.home_pathology.HomePathologyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.hospital_clinic.HospitalAndClinicActivity"
+            android:exported="false" />
         <activity
             android:name=".credential.ForgetPasswordActivity"
             android:exported="true" />
@@ -69,10 +74,10 @@
             android:name=".credential.OtpVerificationFirstPageActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

@@ -5,7 +5,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -143,13 +146,20 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Do
         String degree = doctor.getDegree();
         String fee = doctor.getFee();
 
-        tv_doctor_name.setText(name);
+        tv_doctor_name.setText("Dr. " + name);
         tv_doctor_speciality.setText(speciality);
         tv_doctor_degree.setText(degree);
-        tv_doctor_fee.setText("Fee: "+ fee);
+        tv_doctor_fee.setText("Fee: " + fee);
+
+        Log.d("tag789", "doctor.getImage(): "+ doctor.getImage().toString());
 
         String imageUrl = Api.BASE_URL_IMAGE_ASSET + doctor.getImage();
-        Glide.with(context).load(imageUrl).into(iv_1);
+        if (doctor.getImage() == null || doctor.getImage().isEmpty()){
+            iv_1.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user1));
+        }else {
+            Glide.with(context).load(imageUrl).into(iv_1);
+        }
+
 
 
 //        tv_doctor_name_ban.setText(title_ban);
@@ -197,7 +207,6 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Do
     }
 
 
-
     public long milliseconds(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
@@ -217,7 +226,6 @@ public class DoctorListAdapter extends RecyclerView.Adapter<DoctorListAdapter.Do
         String formattedDate = new SimpleDateFormat(dateStyle).format(date);
         return formattedDate;
     }
-
 
 
     class DoctorListViewHolder extends RecyclerView.ViewHolder {
