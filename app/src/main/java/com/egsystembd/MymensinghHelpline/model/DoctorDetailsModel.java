@@ -29,6 +29,9 @@ public class DoctorDetailsModel {
     @SerializedName("fee")
     @Expose
     private String fee;
+    @SerializedName("fee_payment_type")
+    @Expose
+    private String feePaymentType;
     @SerializedName("available_days")
     @Expose
     private List<String> availableDays = null;
@@ -99,6 +102,14 @@ public class DoctorDetailsModel {
 
     public void setFee(String fee) {
         this.fee = fee;
+    }
+
+    public String getFeePaymentType() {
+        return feePaymentType;
+    }
+
+    public void setFeePaymentType(String feePaymentType) {
+        this.feePaymentType = feePaymentType;
     }
 
     public List<String> getAvailableDays() {

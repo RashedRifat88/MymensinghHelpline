@@ -25,9 +25,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -42,8 +45,11 @@ import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
 import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.adapter.AvailableDaysAdapter;
 import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.adapter.DoctorListAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -52,12 +58,14 @@ import io.reactivex.schedulers.Schedulers;
 public class DoctorDetailsActivity extends AppCompatActivity {
 
     static String doctor_name, doctor_id, doctorSpecialities, doctorExperiencesYear, bmdc_no, doctorDegrees,
-            doctor_img_url, doctor_desig, doctor_note, doctorFee, doctorAvailabilityTime;
+            doctor_img_url, doctor_desig, doctor_note, doctorFee, doctorFeePaymentType, doctorAvailabilityTime;
+    String patientName = "";
+    String patientPhone = "";
     String roomId = "";
     String fromWhere = "";
     ImageView imageView;
     TextView tv_doctor_name, tv_doctor_speciality, tv_doctor_experience, tv_doctor_experience2, tv_bmdc_no, tv_doctor_degree, tv_doctor_designation,
-            tv_doctor_fee, tv_note, tv_doctor_availability_day, tv_calling_text, tv_view_more, tv_appointment;
+            tv_doctor_fee, tv_note, tv_doctor_availability_day, tv_calling_text, tv_view_more, tv_appointment, tv_doctor_fee_payment_type;
     static TextView tv_selected_date, tv_selected_date2;
     LinearLayout linearCall, linearCallStop, linearDesig, linearNote, linearVideoConsultation, linearDoctorTiming, linear_my_doctor, linear_all_doctor;
     static LinearLayout linearSubTimeSlot, linearMicroTimeSlot;
@@ -78,6 +86,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
     public String video_call_initiate = "";
     public String video_call_check_status_url = "";
     private String call_status = "";
+    public static String selectedDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +118,130 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 
 
 //        VidChat.INSTANCE.requestVideoChatPermissions(this, PERMISSION_REQUEST_CODE);
+
+    }
+
+
+    public static void setClickedDate(String selectedDate1) {
+//        tv_selected_date.setText(date1);
+        selectedDate = selectedDate1;
+        Log.d("tag1133", " selectedDate: " + selectedDate);
+    }
+
+
+    private void initComponemt() {
+        recyclerView1 = findViewById(R.id.recyclerView1);
+//        recyclerView4 = findViewById(R.id.recyclerView4);
+        imageView = findViewById(R.id.imageView);
+        tv_doctor_name = findViewById(R.id.tv_doctor_name);
+        tv_doctor_speciality = findViewById(R.id.tv_doctor_speciality);
+        tv_doctor_experience = findViewById(R.id.tv_doctor_experience);
+        tv_doctor_experience2 = findViewById(R.id.tv_doctor_experience2);
+        tv_bmdc_no = findViewById(R.id.tv_bmdc_no);
+        tv_doctor_degree = findViewById(R.id.tv_doctor_degree);
+        tv_doctor_designation = findViewById(R.id.tv_doctor_designation);
+        tv_doctor_fee = findViewById(R.id.tv_doctor_fee);
+        tv_doctor_fee_payment_type = findViewById(R.id.tv_doctor_fee_payment_type);
+        tv_note = findViewById(R.id.tv_note);
+        tv_doctor_availability_day = findViewById(R.id.tv_doctor_availability_day);
+        tv_calling_text = findViewById(R.id.tv_calling_text);
+        tv_appointment = findViewById(R.id.tv_appointment);
+//        tv_selected_date = findViewById(R.id.tv_selected_date);
+//        tv_selected_date2 = findViewById(R.id.tv_selected_date2);
+        tv_view_more = findViewById(R.id.tv_view_more);
+//        linearCall = findViewById(R.id.linearCall);
+//        linearCallStop = findViewById(R.id.linearCallStop);
+        linearDesig = findViewById(R.id.linearDesig);
+        linearNote = findViewById(R.id.linearNote);
+//        linearVideoConsultation = findViewById(R.id.linearVideoConsultation);
+        linearDoctorTiming = findViewById(R.id.linearDoctorTiming);
+//        linear_my_doctor = findViewById(R.id.linear_my_doctor);
+//        linear_all_doctor = findViewById(R.id.linear_all_doctor);
+//        linearSubTimeSlot = findViewById(R.id.linearSubTimeSlot);
+//        linearMicroTimeSlot = findViewById(R.id.linearMicroTimeSlot);
+
+        tv_appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!selectedDate.isEmpty()) {
+//                    doctorFeePaymentType
+//                    makeAppointmentApi();
+                    checkNeceData();
+                } else {
+                    new MaterialDialog.Builder(DoctorDetailsActivity.this)
+                            .title("Dear Patient")
+                            .content("Please select appointment date")
+                            .positiveText("")
+                            .negativeText("Ok")
+                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                }
+                            })
+                            .show();
+                }
+
+
+            }
+        });
+
+
+    }
+
+    private void checkNeceData() {
+
+        if (doctorFeePaymentType.equalsIgnoreCase("postpaid")) {
+
+            boolean wrapInScrollView = true;
+            MaterialDialog dialog = new MaterialDialog.Builder(this)
+                    .customView(R.layout.material_dialog_pre_appointment_view, wrapInScrollView)
+                    .build();
+
+            TextView tv_name = dialog.getCustomView().findViewById(R.id.tv_name);
+            EditText etPatientName = dialog.getCustomView().findViewById(R.id.etPatientName);
+            EditText etPhone = dialog.getCustomView().findViewById(R.id.etPhone);
+            LinearLayout linear_yes = dialog.getCustomView().findViewById(R.id.linear_yes);
+            LinearLayout linear_no = dialog.getCustomView().findViewById(R.id.linear_no);
+
+            patientName = etPatientName.getText().toString();
+            patientPhone = etPatientName.getText().toString();
+
+            linear_yes.setOnClickListener(view1 -> {
+
+                makeAppointmentApi(patientName, patientPhone);
+
+                dialog.dismiss();
+
+            });
+
+            linear_no.setOnClickListener(view1 -> {
+                dialog.dismiss();
+            });
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            WindowManager.LayoutParams wmlp = dialog.getWindow()
+                    .getAttributes();
+            wmlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            wmlp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            dialog.show();
+
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(true);
+
+
+        } else {
+            Toast.makeText(this, "Please make payment first", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        selectedDate = "";
     }
 
     private void setDoctorData() {
@@ -140,6 +273,8 @@ public class DoctorDetailsActivity extends AppCompatActivity {
         tv_doctor_degree.setText(doctorDegrees);
 
         tv_doctor_fee.setText("BDT " + doctorFee);
+
+        tv_doctor_fee_payment_type.setText("(" + doctorFeePaymentType + ")");
 //            tv_doctor_availability_day.setText(doctorAvailabilityTime);
 
     }
@@ -162,6 +297,13 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 
 
     ////
+
+
+    @SuppressLint("CheckResult")
+    private void makeAppointmentApi(String patientName, String patientPhone) {
+
+
+    }
 
 
     @SuppressLint("CheckResult")
@@ -207,11 +349,12 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 //                                    bmdc_no = model.getBmdcNo().toString();
                                     doctorDegrees = model.getDegree();
                                     doctorFee = model.getFee();
+                                    doctorFeePaymentType = model.getFeePaymentType().toString();
 
                                     String imageUrl = Api.BASE_URL_IMAGE_ASSET + model.getImage();
-                                    if (model.getImage() == null || model.getImage().isEmpty()){
+                                    if (model.getImage() == null || model.getImage().isEmpty()) {
                                         imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_doctor1));
-                                    }else {
+                                    } else {
                                         Glide.with(this).load(imageUrl).into(imageView);
                                     }
 
@@ -253,8 +396,10 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 
                                     availableDayList = model.getAvailableDays();
 
-                                    adapter.setData(availableDayList);
-                                    adapter.notifyDataSetChanged();
+                                    if (model.getAvailableDays() != null) {
+                                        adapter.setData(availableDayList);
+                                        adapter.notifyDataSetChanged();
+                                    }
 
 
                                 } else {
@@ -303,56 +448,17 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 //    }
 
 
-    private void initComponemt() {
-        recyclerView1 = findViewById(R.id.recyclerView1);
-//        recyclerView4 = findViewById(R.id.recyclerView4);
-        imageView = findViewById(R.id.imageView);
-        tv_doctor_name = findViewById(R.id.tv_doctor_name);
-        tv_doctor_speciality = findViewById(R.id.tv_doctor_speciality);
-        tv_doctor_experience = findViewById(R.id.tv_doctor_experience);
-        tv_doctor_experience2 = findViewById(R.id.tv_doctor_experience2);
-        tv_bmdc_no = findViewById(R.id.tv_bmdc_no);
-        tv_doctor_degree = findViewById(R.id.tv_doctor_degree);
-        tv_doctor_designation = findViewById(R.id.tv_doctor_designation);
-        tv_doctor_fee = findViewById(R.id.tv_doctor_fee);
-        tv_note = findViewById(R.id.tv_note);
-        tv_doctor_availability_day = findViewById(R.id.tv_doctor_availability_day);
-        tv_calling_text = findViewById(R.id.tv_calling_text);
-        tv_appointment = findViewById(R.id.tv_appointment);
-//        tv_selected_date = findViewById(R.id.tv_selected_date);
-//        tv_selected_date2 = findViewById(R.id.tv_selected_date2);
-        tv_view_more = findViewById(R.id.tv_view_more);
-//        linearCall = findViewById(R.id.linearCall);
-//        linearCallStop = findViewById(R.id.linearCallStop);
-        linearDesig = findViewById(R.id.linearDesig);
-        linearNote = findViewById(R.id.linearNote);
-//        linearVideoConsultation = findViewById(R.id.linearVideoConsultation);
-        linearDoctorTiming = findViewById(R.id.linearDoctorTiming);
-//        linear_my_doctor = findViewById(R.id.linear_my_doctor);
-//        linear_all_doctor = findViewById(R.id.linear_all_doctor);
-//        linearSubTimeSlot = findViewById(R.id.linearSubTimeSlot);
-//        linearMicroTimeSlot = findViewById(R.id.linearMicroTimeSlot);
-
-        tv_appointment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-
-
-    }
-
-
     private void loadRecyclerView() {
         adapter = new AvailableDaysAdapter(this);
         recyclerView1.setAdapter(adapter);
-        RecyclerView.LayoutManager mLayoutManager =
-                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false); // Set Horizontal Layout Manager for Recycler view
+//        RecyclerView.LayoutManager mLayoutManager =
+//                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false); // Set Horizontal Layout Manager for Recycler view
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         recyclerView1.setLayoutManager(mLayoutManager);
 //        adapter.setData2(doctorDateList, doctorTimeSlotNumberList, doctor_name);
         adapter.notifyDataSetChanged();
+
+
     }
 
 

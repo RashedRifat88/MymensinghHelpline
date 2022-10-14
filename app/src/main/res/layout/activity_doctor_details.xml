@@ -471,11 +471,22 @@
                             android:text="BDT 0.00"
                             android:textColor="@color/colorBlack"
                             android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_doctor_fee_payment_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="2dp"
+                            android:text="(Prepaid)"
+                            android:textColor="@color/grey_500"
+                            android:textSize="12sp" />
 
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -656,7 +667,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:layout_marginTop="0dp"
-                            android:text="Select Appointment Time"
+                            android:text="Select Appointment Date"
                             android:textColor="@color/grey_800"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -678,7 +689,7 @@
                                 android:id="@+id/recyclerView1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="0dp"
+                                android:layout_marginLeft="5dp"
                                 android:cacheColorHint="#ffffff"
                                 android:minHeight="80dp" />
 

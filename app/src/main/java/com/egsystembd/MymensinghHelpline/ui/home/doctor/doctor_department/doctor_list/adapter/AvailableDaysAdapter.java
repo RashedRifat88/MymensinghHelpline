@@ -28,11 +28,14 @@ import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class AvailableDaysAdapter extends RecyclerView.Adapter<AvailableDaysAdapter.AvailableDaysViewHolder> {
 
+    List<LinearLayout> linearLayoutList = new ArrayList<>();
     List<String> doctorList = new ArrayList<>();
     List<String> home_module_name_ban_list = new ArrayList<>();
     List<String> home_module_image_list = new ArrayList<>();
@@ -137,7 +140,7 @@ public class AvailableDaysAdapter extends RecyclerView.Adapter<AvailableDaysAdap
 
 //        String doctorId = doctor.getId().toString();
         String dayName = day;
-        String dateName = "";
+        String dateName = getDateFromDay(dayName);
 
 //
         tv_date.setText(dateName);
@@ -152,7 +155,6 @@ public class AvailableDaysAdapter extends RecyclerView.Adapter<AvailableDaysAdap
 //        }else {
 //            Glide.with(context).load(imageUrl).into(iv_1);
 //        }
-
 
 
 //        tv_doctor_name_ban.setText(title_ban);
@@ -178,25 +180,46 @@ public class AvailableDaysAdapter extends RecyclerView.Adapter<AvailableDaysAdap
 //            img_clock.setColorFilter(ContextCompat.getColor(context, R.color.light_deep_color5), android.graphics.PorterDuff.Mode.SRC_IN);
 //        }
 
-
-//        String name = subscription.getName();
-
-//        card1.setOnClickListener(view -> {
-//            int VideoPlaylistActivity_code = 1;
-//
-////            Intent intent = new Intent(context, AvailableDaysActivity.class);
-////            intent.putExtra("title", doctorInfo);
-////            intent.putExtra("title_code", title_code);
-////            context.startActivity(intent);
-//
-//        });
+        linearLayoutList.add(holder.linear1);
 
         linear1.setOnClickListener(v -> {
 //            Intent intent = new Intent(context, DoctorDetailsActivity.class);
 //            intent.putExtra("doctor_id", doctorId);
 //            context.startActivity(intent);
+
+//            for (int i = 0; i < doctorList.size(); i++) {
+            for (LinearLayout linear2: linearLayoutList) {
+                linear2.setBackground(ContextCompat.getDrawable(context, R.drawable.rounded_corner12));
+            }
+
+            linear1.setBackground(ContextCompat.getDrawable(context, R.drawable.rounded_corner13));
+
+            DoctorDetailsActivity.setClickedDate(dateName);
+
         });
 
+    }
+
+
+    public String getDateFromDay(String dayName) {
+//        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd-MMM-yyyy");
+        SimpleDateFormat sdf_date = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat sdf_day = new SimpleDateFormat("EEEE");
+
+        for (int i = 0; i < 7; i++) {
+            Calendar calendar = new GregorianCalendar();
+            calendar.add(Calendar.DATE, i);
+            String date = sdf_date.format(calendar.getTime());
+            String day = sdf_day.format(calendar.getTime());
+            Log.d("tag9898", day);
+
+            if (day.equalsIgnoreCase(dayName)) {
+                return date;
+            }
+
+        }
+
+        return "Nothing";
     }
 
 
