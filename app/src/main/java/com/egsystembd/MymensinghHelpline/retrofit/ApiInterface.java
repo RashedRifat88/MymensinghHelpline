@@ -4,6 +4,7 @@ import com.egsystembd.MymensinghHelpline.model.DoctorDetailsModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
 import com.egsystembd.MymensinghHelpline.model.HospitalListModel;
 import com.egsystembd.MymensinghHelpline.model.LoginModel;
+import com.egsystembd.MymensinghHelpline.model.MakeAppointmentModel;
 import com.egsystembd.MymensinghHelpline.model.RegisterModel;
 
 import io.reactivex.Observable;
@@ -81,6 +82,23 @@ public interface ApiInterface {
                                                 @Field("device_name") String device_name
 
     );
+
+
+    @FormUrlEncoded
+    @POST(Api.make_appointment)
+    Observable<Response<MakeAppointmentModel>> make_appointment(@Header("authorization") String authorization,
+                                                                @Header("Accept") String accept,
+                                                                @Field("name") String name,
+                                                                @Field("email") String email,
+                                                                @Field("phone") String phone,
+                                                                @Field("doctor") String doctor,
+                                                                @Field("date") String date,
+                                                                @Field("message") String message,
+                                                                @Field("status") String status
+
+
+    );
+
 
 
     @GET(Api.doctors)

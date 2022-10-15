@@ -40,6 +40,7 @@ import com.egsystembd.MymensinghHelpline.credential.LoginActivity;
 import com.egsystembd.MymensinghHelpline.data.SharedData;
 import com.egsystembd.MymensinghHelpline.model.DoctorDetailsModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
+import com.egsystembd.MymensinghHelpline.model.MakeAppointmentModel;
 import com.egsystembd.MymensinghHelpline.retrofit.Api;
 import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
 import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.adapter.AvailableDaysAdapter;
@@ -61,6 +62,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
             doctor_img_url, doctor_desig, doctor_note, doctorFee, doctorFeePaymentType, doctorAvailabilityTime;
     String patientName = "";
     String patientPhone = "";
+    String patientMessage = "";
     String roomId = "";
     String fromWhere = "";
     ImageView imageView;
@@ -202,15 +204,17 @@ public class DoctorDetailsActivity extends AppCompatActivity {
             TextView tv_name = dialog.getCustomView().findViewById(R.id.tv_name);
             EditText etPatientName = dialog.getCustomView().findViewById(R.id.etPatientName);
             EditText etPhone = dialog.getCustomView().findViewById(R.id.etPhone);
+            EditText etPatientMessage = dialog.getCustomView().findViewById(R.id.etPatientMessage);
             LinearLayout linear_yes = dialog.getCustomView().findViewById(R.id.linear_yes);
             LinearLayout linear_no = dialog.getCustomView().findViewById(R.id.linear_no);
 
             patientName = etPatientName.getText().toString();
-            patientPhone = etPatientName.getText().toString();
+            patientPhone = etPhone.getText().toString();
+            patientMessage = etPatientMessage.getText().toString();
 
             linear_yes.setOnClickListener(view1 -> {
 
-                makeAppointmentApi(patientName, patientPhone);
+                makeAppointmentApi(patientName, patientPhone, patientMessage);
 
                 dialog.dismiss();
 
@@ -300,7 +304,86 @@ public class DoctorDetailsActivity extends AppCompatActivity {
 
 
     @SuppressLint("CheckResult")
-    private void makeAppointmentApi(String patientName, String patientPhone) {
+    private void makeAppointmentApi(String patientName, String patientPhone, String patientMessage) {
+
+
+        String deviceModel = android.os.Build.MODEL;
+        String deviceManufacturer = android.os.Build.MANUFACTURER;
+        String deviceProduct = Build.PRODUCT;
+        int sdkVersion = android.os.Build.VERSION.SDK_INT;
+        String deviceName = deviceManufacturer + " " + deviceModel + " android_sdk: "+ sdkVersion;
+        String token = "";
+        String authorization = "Bearer" + " " + token;
+        String accept = "application/json";
+
+        Log.d("tag11111", " deviceModel: " + deviceModel);
+        Log.d("tag11111", " deviceManufacturer: " + deviceManufacturer);
+        Log.d("tag11111", " deviceProduct: " + deviceProduct);
+
+        String name = patientName;
+        String email = "";
+        String phone = patientPhone;
+        String doctor = doctor_name;
+        String date = selectedDate;
+        String message = patientMessage;
+        String status = "In Progress";
+
+
+        RetrofitApiClient.getApiInterface().make_appointment(authorization, accept, name, email, phone, doctor, date, message, status)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+
+                            Log.d("tag11111", " response.code(): " + response.code());
+//                            progressDialog.dismiss();
+
+                            if (response.isSuccessful()) {
+
+//                                animationView.setVisibility(View.GONE);
+
+                                MakeAppointmentModel itemModel = response.body();
+                                Log.d("tag11111", " itemModel: " + itemModel);
+
+
+                                String responseMessage = itemModel.getMessage();
+
+                                if (itemModel.getStatus().equalsIgnoreCase("success")) {
+
+                                    new MaterialDialog.Builder(DoctorDetailsActivity.this)
+                                            .title("Dear Patient")
+                                            .content(responseMessage)
+                                            .positiveText("")
+                                            .negativeText("Ok")
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+//                                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+//                                                    startActivity(intent);
+                                                    finish();
+
+                                                }
+                                            })
+                                            .show();
+
+
+                                }
+
+
+                            } else {
+//                                response.errorBody().string();
+                            }
+
+                        },
+                        error -> {
+
+                            Log.d("tag11111", " error: " + error.getMessage());
+                        },
+                        () -> {
+                            Log.d("tag11111", " response.code(): ");
+                        }
+
+                );
 
 
     }
