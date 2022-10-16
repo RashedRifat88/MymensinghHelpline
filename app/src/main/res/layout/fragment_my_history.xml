@@ -1,11 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.my_history.MyHistoryFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F6F5F5"
+        android:orientation="vertical"
+        tools:context=".ui.account.AccountFragment">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:background="@drawable/bottom_rounded_bg1"
+                android:orientation="vertical">
+
+                <!--            <androidx.cardview.widget.CardView-->
+                <!--                android:layout_width="140dp"-->
+                <!--                android:layout_height="140dp"-->
+                <!--                android:layout_gravity="center_horizontal"-->
+                <!--                android:layout_marginTop="35dp"-->
+                <!--                android:foregroundGravity="center_horizontal"-->
+                <!--                app:cardCornerRadius="100dp">-->
+
+                <!--                <ImageView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:src="@drawable/rifat" />-->
+                <!--            </androidx.cardview.widget.CardView>-->
+
+                <!--            <TextView-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_gravity="center_horizontal"-->
+                <!--                android:layout_marginTop="10dp"-->
+                <!--                android:text="Rashed Rifat"-->
+                <!--                android:textColor="#fff"-->
+                <!--                android:textSize="23dp"-->
+                <!--                android:textStyle="bold" />-->
+            </LinearLayout>
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:elevation="0dp"-->
+<!--                android:minHeight="120dp"-->
+<!--                app:cardCornerRadius="15dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:weightSum="3">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:gravity="center"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <androidx.cardview.widget.CardView-->
+<!--                            android:layout_width="75dp"-->
+<!--                            android:layout_height="75dp"-->
+<!--                            android:layout_gravity="center_horizontal"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:layout_marginBottom="5dp"-->
+<!--                            android:foregroundGravity="center_horizontal"-->
+<!--                            app:cardCornerRadius="100dp">-->
+
+<!--                            <ImageView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:src="@drawable/ic_user1"-->
+<!--                                app:tint="@color/colorPrimary" />-->
+
+<!--                        </androidx.cardview.widget.CardView>-->
+
+<!--                        &lt;!&ndash;                    <TextView&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        android:text="1000K+"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        android:textColor="@color/colorPrimary"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        android:textSize="27dp"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        android:textStyle="bold" />&ndash;&gt;-->
+
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginLeft="10dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:layout_weight="2"-->
+<!--                        android:gravity="left"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/roboto_regular"-->
+<!--                            android:text="Rashed Rifat"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="18sp" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="@font/roboto_regular"-->
+<!--                            android:text="018xx xxxxxx"-->
+<!--                            android:textColor="@color/grey_600"-->
+<!--                            android:textSize="17sp" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tv_edit_profile"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:clickable="true"-->
+<!--                            android:fontFamily="@font/roboto_regular"-->
+<!--                            android:foreground="?android:attr/selectableItemBackground"-->
+<!--                            android:paddingTop="8dp"-->
+<!--                            android:paddingBottom="8dp"-->
+<!--                            android:text="Edit Profile"-->
+<!--                            android:textColor="@color/colorPrimary"-->
+<!--                            android:textSize="18dp" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+
+<!--            </androidx.cardview.widget.CardView>-->
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linear_appointment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/rounded_corner9"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="Appointment"
+                    android:textColor="#000"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/rounded_corner9"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_paper_with_text"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="Report"
+                    android:textColor="#000"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--    <Button-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_gravity="center_horizontal"-->
+        <!--        android:layout_marginTop="15dp"-->
+        <!--        android:text="Edit"-->
+        <!--        android:textColor="@color/white"-->
+        <!--        android:textSize="17sp" />-->
+
+    </LinearLayout>
 
 
 </FrameLayout>

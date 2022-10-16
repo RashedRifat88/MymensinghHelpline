@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.egsystembd.MymensinghHelpline.R;
 import com.egsystembd.MymensinghHelpline.databinding.FragmentMyHistoryBinding;
 import com.egsystembd.MymensinghHelpline.ui.account.edit_profile.EditProfileActivity;
+import com.egsystembd.MymensinghHelpline.ui.my_history.appointment.AppointmentHistoryActivity;
 
 
 public class MyHistoryFragment extends Fragment {
@@ -43,10 +44,10 @@ public class MyHistoryFragment extends Fragment {
 
     private void initComponents() {
 
-//        binding.tvEditProfile.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, EditProfileActivity.class);
-//            context.startActivity(intent);
-//        });
+        binding.linearAppointment.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AppointmentHistoryActivity.class);
+            context.startActivity(intent);
+        });
 
     }
 

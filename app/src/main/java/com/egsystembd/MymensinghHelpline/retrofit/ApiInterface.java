@@ -1,5 +1,6 @@
 package com.egsystembd.MymensinghHelpline.retrofit;
 
+import com.egsystembd.MymensinghHelpline.model.AppointmentHistoryModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorDetailsModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
 import com.egsystembd.MymensinghHelpline.model.HospitalListModel;
@@ -99,6 +100,12 @@ public interface ApiInterface {
 
     );
 
+    @FormUrlEncoded
+    @POST(Api.appointment_history)
+    Observable<Response<AppointmentHistoryModel>> appointment_history(@Header("authorization") String authorization,
+                                                                      @Header("Accept") String accept,
+                                                                      @Field("phone") String phone
+    );
 
 
     @GET(Api.doctors)

@@ -17,6 +17,7 @@ public class Api {
     public static final String doctors_details = "api/v1/doctors";
     public static final String hospitals = "api/v1/hospitals";
     public static final String make_appointment = "api/v1/make_appointment";
+    public static final String appointment_history = "api/v1/appointment_history";
 
 
 }
