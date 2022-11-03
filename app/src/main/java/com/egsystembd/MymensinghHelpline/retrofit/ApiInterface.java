@@ -1,5 +1,7 @@
 package com.egsystembd.MymensinghHelpline.retrofit;
 
+import com.egsystembd.MymensinghHelpline.model.AllTestModel;
+import com.egsystembd.MymensinghHelpline.model.AppHomeModel;
 import com.egsystembd.MymensinghHelpline.model.AppointmentHistoryModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorDetailsModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
@@ -66,10 +68,9 @@ public interface ApiInterface {
     Observable<Response<RegisterModel>> user_registration(@Header("authorization") String authorization,
                                                           @Header("Accept") String accept,
                                                           @Field("name") String name,
-                                                          @Field("username") String username,
+                                                          @Field("phone") String phone,
                                                           @Field("password") String password,
-                                                          @Field("device_name") String device_name,
-                                                          @Field("token") String token
+                                                          @Field("device_name") String device_name
 
     );
 
@@ -78,7 +79,7 @@ public interface ApiInterface {
     @POST(Api.user_login)
     Observable<Response<LoginModel>> user_login(@Header("authorization") String authorization,
                                                 @Header("Accept") String accept,
-                                                @Field("email") String email,
+                                                @Field("email_or_phone") String email_or_phone,
                                                 @Field("password") String password,
                                                 @Field("device_name") String device_name
 
@@ -142,6 +143,18 @@ public interface ApiInterface {
     @GET(Api.hospitals)
     Observable<Response<HospitalListModel>> hospitals(@Header("authorization") String authorization,
                                                       @Header("Accept") String accept
+
+    );
+
+    @GET(Api.app_home)
+    Observable<Response<AppHomeModel>> appHome(@Header("authorization") String authorization,
+                                                 @Header("Accept") String accept
+
+    );
+
+    @GET(Api.show_all_test)
+    Observable<Response<AllTestModel>> show_all_test(@Header("authorization") String authorization,
+                                                     @Header("Accept") String accept
 
     );
 

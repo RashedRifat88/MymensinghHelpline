@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.egsystembd.MymensinghHelpline.R;
+import com.egsystembd.MymensinghHelpline.model.AllTestModel;
 import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
 import com.egsystembd.MymensinghHelpline.retrofit.Api;
 import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.DoctorDetailsActivity;
@@ -32,9 +35,11 @@ import java.util.List;
 
 public class HomePathologyAdapter extends RecyclerView.Adapter<HomePathologyAdapter.DoctorListViewHolder> {
 
-    List<DoctorListModel.Doctor> doctorList = new ArrayList<>();
+    List<AllTestModel.Test> testList = new ArrayList<>();
     List<String> home_module_name_ban_list = new ArrayList<>();
     List<String> home_module_image_list = new ArrayList<>();
+    private ArrayList<String> selectedItemIds = new ArrayList<String>();
+    private ArrayList<AllTestModel.Test> selectedTests = new ArrayList<>();
     Context context;
 
     Cursor dataCursor;
@@ -64,20 +69,20 @@ public class HomePathologyAdapter extends RecyclerView.Adapter<HomePathologyAdap
     }
 
 
-    public void setData(List<DoctorListModel.Doctor> doctorList) {
-        this.doctorList = doctorList;
+    public void setData(List<AllTestModel.Test> testList) {
+        this.testList = testList;
 //        this.home_module_name_ban_list = home_module_name_ban_list;
     }
 
-    public void filterList(List<DoctorListModel.Doctor> doctorList) {
-        this.doctorList = doctorList;
+    public void filterList(List<AllTestModel.Test> testList) {
+        this.testList = testList;
         notifyDataSetChanged();
     }
 
 
     @Override
     public int getItemCount() {
-        return doctorList.size();
+        return testList.size();
     }
 
 
@@ -90,7 +95,7 @@ public class HomePathologyAdapter extends RecyclerView.Adapter<HomePathologyAdap
     @Override
     public DoctorListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.single_item_doctor_list, parent, false);
+                .inflate(R.layout.single_item_home_pathology_list, parent, false);
         DoctorListViewHolder myViewHolder = new DoctorListViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,51 +110,41 @@ public class HomePathologyAdapter extends RecyclerView.Adapter<HomePathologyAdap
     @Override
     public void onBindViewHolder(final HomePathologyAdapter.DoctorListViewHolder holder, @SuppressLint("RecyclerView") int position) {
 //        TextView txtSlNo = holder.txtSlNo;
-//        TextView tv_time_left_in_days = holder.tv_time_left_in_days;
-//        TextView tv_time_left = holder.tv_time_left;
-//        TextView tv_name = holder.tv_name;
-//        TextView tv_expire_date = holder.tv_expire_date;
-//
         LinearLayout linear1 = holder.linear1;
-//        LinearLayout linear2 = holder.linear2;
-//        RelativeLayout relative1 = holder.relative1;
-//        ImageView imageView = holder.imageView;
-//        ImageView img_clock = holder.img_clock;
-//        ImageView img_arrow = holder.img_arrow;
-//        ProgressBar progressBar = holder.progressBar;
+
 
         ImageView iv_circle = holder.iv_circle;
         ImageView iv_1 = holder.iv_1;
 
-        TextView tv_doctor_name = holder.tv_doctor_name;
-        TextView tv_doctor_speciality = holder.tv_doctor_speciality;
-        TextView tv_doctor_degree = holder.tv_doctor_degree;
-        TextView tv_doctor_fee = holder.tv_doctor_fee;
-        TextView tv_doctor_name_ban = holder.tv_doctor_name_ban;
+        TextView tv_name = holder.tv_name;
+        TextView tv_price = holder.tv_price;
+        TextView tv_hospital_name = holder.tv_hospital_name;
+
 
         CardView card1 = holder.card1;
+        CheckBox check_box = holder.check_box;
 
 //        img_clock.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation));
 ////        imageView.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation));
 ////        cardview.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fall_down_animation));
 //
 //
-        DoctorListModel.Doctor doctor = doctorList.get(position);
+        AllTestModel.Test test = testList.get(position);
 
 
-        String doctorId = doctor.getId().toString();
-        String name = doctor.getName();
-        String speciality = doctor.getSpeciality();
-        String degree = doctor.getDegree();
-        String fee = doctor.getFee();
 
-        tv_doctor_name.setText(name);
-        tv_doctor_speciality.setText(speciality);
-        tv_doctor_degree.setText(degree);
-        tv_doctor_fee.setText("Fee: "+ fee);
+        String name = test.getTestName();
+        String price = test.getTestPrice();
+        String hospital_name = test.getHospitalName();
 
-        String imageUrl = Api.BASE_URL_IMAGE_ASSET + doctor.getImage();
-        Glide.with(context).load(imageUrl).into(iv_1);
+
+        tv_name.setText(name);
+        tv_price.setText("\u09F3 "+price+ " /=");
+        tv_hospital_name.setText(hospital_name);
+
+
+//        String imageUrl = Api.BASE_URL_IMAGE_ASSET + test.getImage();
+//        Glide.with(context).load(imageUrl).into(iv_1);
 
 
 //        tv_doctor_name_ban.setText(title_ban);
@@ -176,24 +171,60 @@ public class HomePathologyAdapter extends RecyclerView.Adapter<HomePathologyAdap
 //        }
 
 
-//        String name = subscription.getName();
+        check_box.setChecked(false);
 
-//        card1.setOnClickListener(view -> {
-//            int VideoPlaylistActivity_code = 1;
-//
-////            Intent intent = new Intent(context, DoctorListActivity.class);
-////            intent.putExtra("title", doctorInfo);
-////            intent.putExtra("title_code", title_code);
-////            context.startActivity(intent);
-//
-//        });
+        check_box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        linear1.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DoctorDetailsActivity.class);
-            intent.putExtra("doctor_id", doctorId);
-            context.startActivity(intent);
+                if (check_box.isChecked()) {
+                    selectedItemIds.add(test.getId().toString());
+                    selectedTests.add(test);
+                }
+
+                if (!check_box.isChecked()) {
+                    selectedItemIds.remove(test.getId().toString());
+                    selectedTests.remove(test);
+                }
+
+            }
         });
 
+
+        linear1.setOnClickListener(view -> {
+
+
+            if (check_box.isChecked()) {
+                check_box.setChecked(false);
+            }else {
+                check_box.setChecked(true);
+            }
+
+
+            if (check_box.isChecked()) {
+                selectedItemIds.add(test.getId().toString());
+                selectedTests.add(test);
+            }
+
+            if (!check_box.isChecked()) {
+                selectedItemIds.remove(test.getId().toString());
+                selectedTests.remove(test);
+            }
+
+
+        });
+
+
+
+    }
+
+
+    public ArrayList<String> getSelectedIds() {
+        return selectedItemIds;
+    }
+
+    public ArrayList<AllTestModel.Test> getSelectedTests() {
+        return selectedTests;
     }
 
 
@@ -223,11 +254,9 @@ public class HomePathologyAdapter extends RecyclerView.Adapter<HomePathologyAdap
     class DoctorListViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtSlNo;
-        TextView tv_doctor_name;
-        TextView tv_doctor_speciality;
-        TextView tv_doctor_degree;
-        TextView tv_doctor_fee;
-        TextView tv_doctor_name_ban;
+        TextView tv_name;
+        TextView tv_price;
+        TextView tv_hospital_name;
 
         LinearLayout linear1;
         LinearLayout linear2;
@@ -237,19 +266,21 @@ public class HomePathologyAdapter extends RecyclerView.Adapter<HomePathologyAdap
         ImageView iv_1;
 
         CardView card1;
+        CheckBox check_box;
         ProgressBar progressBar;
 
         public DoctorListViewHolder(View itemView) {
             super(itemView);
-            tv_doctor_name = itemView.findViewById(R.id.tv_doctor_name);
-            tv_doctor_speciality = itemView.findViewById(R.id.tv_doctor_speciality);
-            tv_doctor_degree = itemView.findViewById(R.id.tv_doctor_degree);
-            tv_doctor_fee = itemView.findViewById(R.id.tv_doctor_fee);
+            tv_name = itemView.findViewById(R.id.tv_name);
+            tv_price = itemView.findViewById(R.id.tv_price);
+            tv_hospital_name = itemView.findViewById(R.id.tv_hospital_name);
 
             iv_circle = itemView.findViewById(R.id.iv_circle);
             iv_1 = itemView.findViewById(R.id.iv_1);
 
             card1 = itemView.findViewById(R.id.card1);
+
+            check_box = itemView.findViewById(R.id.check_box);
 
             linear1 = itemView.findViewById(R.id.linear1);
 //            linear2 = itemView.findViewById(R.id.linear2);

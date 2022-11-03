@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private ConstraintLayout lay_pass;
     private ImageView iv_hi;
     private TextView tv_Terms_conditions, tv_sign_up, tv_log_in, tv_forgot_password;
-    private EditText etFullName, etEmail, etPhoneNumber, etPassword;
+    private EditText etFullName, etPhone, etPhoneNumber, etPassword;
     private boolean nameIsEmpty = true;
     private boolean emailIsEmpty = true;
     private boolean phoneIsEmpty = true;
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         if (SharedData.getMOBILE(this) ==null || SharedData.getMOBILE(this).isEmpty()){
 
         }else {
-            etEmail.setText(SharedData.getMOBILE(this));
+            etPhone.setText(SharedData.getMOBILE(this));
         }
     }
 
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         iv_hi = findViewById(R.id.iv_hi);
 
 //        etFullName = findViewById(R.id.etFullName);
-        etEmail = findViewById(R.id.etEmail);
+        etPhone = findViewById(R.id.etPhone);
 //        etPhoneNumber = findViewById(R.id.etPhoneNumber);
         etPassword = findViewById(R.id.etPassword);
 
@@ -154,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        etEmail.addTextChangedListener(new TextWatcher() {
+        etPhone.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -168,13 +168,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if (s.length() != 0) {
-                    etEmail.setBackground(getResources().getDrawable(R.drawable.rounded_corner4));
-                    etEmail.setPadding(45, 40, 45, 40);
+                    etPhone.setBackground(getResources().getDrawable(R.drawable.rounded_corner4));
+                    etPhone.setPadding(45, 40, 45, 40);
                     emailIsEmpty = false;
                     checkSignupButtonActive();
                 } else {
-                    etEmail.setBackground(getResources().getDrawable(R.drawable.rounded_corner3));
-                    etEmail.setPadding(45, 40, 45, 40);
+                    etPhone.setBackground(getResources().getDrawable(R.drawable.rounded_corner3));
+                    etPhone.setPadding(45, 40, 45, 40);
                     emailIsEmpty = true;
                     checkSignupButtonActive();
                 }
@@ -300,7 +300,7 @@ public class LoginActivity extends AppCompatActivity {
 //
 //        String userName = "";
 //        if (SharedData.getMOBILE(this) ==null || SharedData.getMOBILE(this).isEmpty()){
-//            userName = etEmail.getText().toString();
+//            userName = etPhone.getText().toString();
 //        }else {
 //            userName = SharedData.getMOBILE(this);
 //        }
@@ -436,22 +436,36 @@ public class LoginActivity extends AppCompatActivity {
    @SuppressLint("CheckResult")
    private void loginApi() {
 
-        String userName = "user@gmail.com";
-        String password = "12345678";
-        String deviceName = "";
+       String email_or_phone = etPhone.getText().toString();
+       String password = etPassword.getText().toString();
+       String deviceModel = android.os.Build.MODEL;
+       String deviceManufacturer = android.os.Build.MANUFACTURER;
+       String deviceProduct = Build.PRODUCT;
+       int sdkVersion = android.os.Build.VERSION.SDK_INT;
+       String deviceName = deviceManufacturer + " " + deviceModel + " android_sdk: "+ sdkVersion;
         String token = "";
         String authorization = "Bearer" + " " ;
         String accept = "application/json";
 
 
-        RetrofitApiClient.getApiInterface().user_login(authorization, accept,  userName, password, deviceName)
+        RetrofitApiClient.getApiInterface().user_login(authorization, accept,  email_or_phone, password, deviceName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
 
+                            Log.d("tag3344", "response.code():" + response.code());
                             Log.d("tag3344", response.toString());
                             Log.d("tag3344", response.message().toString());
                             Log.d("tag3344", String.valueOf(response.code()));
+
+                            if (response.code() == 401) {
+                                new MaterialDialog.Builder(LoginActivity.this)
+                                        .title("Login Status")
+                                        .content("Username or password is incorrect. Please try again with correct one")
+                                        .positiveText("")
+                                        .negativeText("Ok")
+                                        .show();
+                            }
 
                             if (response.code() == 200) {
 
@@ -497,7 +511,7 @@ public class LoginActivity extends AppCompatActivity {
                                 String userToken = loginModel.getToken().toString();
 //                                String message = loginModel.getMessage();
 //                                String user_name = loginModel.getData().getName();
-//                                String email = loginModel.getData().getEmail();
+//                                String email = loginModel.getData().getPhone();
 //                                String address = loginModel.getData().getAddress();
 //                                String verification = loginModel.getData().getVerification();
 //                                versionNameFromServer = loginModel.getData().getVersion_name();
@@ -531,19 +545,22 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             } else {
-                                Log.d("tag20", "else is called ");
+                                Log.d("tag3344", "else is called ");
                             }
                         },
                         error -> {
 //                            customProgress.hideProgress();
-//                            new MaterialDialog.Builder(LoginActivity.this)
-//                                    .title("Status")
-//                                    .content("Login Status: " )
-//                                    .positiveText("")
-//                                    .negativeText("Ok")
-//                                    .show();
 
-                            Log.d("tag20", error.getMessage() );
+//                            if (response.code() == 401) {
+//                                new MaterialDialog.Builder(LoginActivity.this)
+//                                        .title("Login Status")
+//                                        .content(response.code())
+//                                        .positiveText("Username or password is incorrect. Please try again with correct one")
+//                                        .negativeText("Ok")
+//                                        .show();
+//                            }
+
+                            Log.d("tag3344", "error msg: "+error.getMessage().toString() );
 
                         },
                         () -> {

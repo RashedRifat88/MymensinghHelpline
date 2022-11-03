@@ -192,7 +192,7 @@
 
 
             <EditText
-                android:id="@+id/etEmail"
+                android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
@@ -201,7 +201,7 @@
                 android:drawableLeft="@drawable/ic_account2"
                 android:drawablePadding="17dp"
                 android:fontFamily="@font/poppins_light"
-                android:hint="Your Mobile Number or Email"
+                android:hint="Your Mobile Number"
                 android:inputType="text"
                 android:minHeight="54dp"
                 android:paddingStart="20dp"

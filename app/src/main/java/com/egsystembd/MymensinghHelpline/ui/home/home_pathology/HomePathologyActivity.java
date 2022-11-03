@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -21,9 +22,10 @@ import com.egsystembd.MymensinghHelpline.R;
 import com.egsystembd.MymensinghHelpline.credential.LoginActivity;
 import com.egsystembd.MymensinghHelpline.data.SharedData;
 import com.egsystembd.MymensinghHelpline.databinding.ActivityHomePathologyBinding;
-import com.egsystembd.MymensinghHelpline.model.DoctorListModel;
+import com.egsystembd.MymensinghHelpline.model.AllTestModel;
 import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
-import com.egsystembd.MymensinghHelpline.ui.home.doctor.doctor_department.doctor_list.adapter.DoctorListAdapter;
+import com.egsystembd.MymensinghHelpline.ui.home.home_pathology.adapter.HomePathologyAdapter;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +36,14 @@ import io.reactivex.schedulers.Schedulers;
 public class HomePathologyActivity extends AppCompatActivity {
 
     private ActivityHomePathologyBinding binding;
-    private DoctorListAdapter adapter;
+    private HomePathologyAdapter adapter;
 
     List<String> mymensingh_div_service_name_list;
     List<String> home_module_name_ban_list = new ArrayList<>();
     List<String> mymensingh_div_service_image_list;
 
     private String title = "";
-    List<DoctorListModel.Doctor> doctorList;
+    List<AllTestModel.Test> testList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,11 +117,31 @@ public class HomePathologyActivity extends AppCompatActivity {
         binding.linearBack.setOnClickListener(v -> {
             finish();
         });
+
+        binding.tvCheckout.setOnClickListener(view -> {
+            ArrayList<String> selectedItemIds = adapter.getSelectedIds();
+            ArrayList<AllTestModel.Test> selectedTests = adapter.getSelectedTests();
+            Log.d("tag20", "selectedItemIds from fragment: " + selectedItemIds);
+
+            if (selectedItemIds.size() > 0) {
+
+                Intent intent = new Intent(HomePathologyActivity.this, HomePathologyCheckoutActivity.class);
+                intent.putExtra("selected_ids", selectedItemIds);
+                intent.putExtra("selected_tests", selectedTests);
+                startActivity(intent);
+
+            } else {
+                Toast.makeText(getApplicationContext(), "You should select all at least one", Toast.LENGTH_LONG).show();
+            }
+
+
+        });
+
     }
 
 
     private void loadRecyclerView() {
-        adapter = new DoctorListAdapter(this);
+        adapter = new HomePathologyAdapter(this);
         binding.recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         binding.recyclerView.setLayoutManager(mLayoutManager);
@@ -129,24 +151,17 @@ public class HomePathologyActivity extends AppCompatActivity {
 
 
     private void filter(String text) {
-        List<DoctorListModel.Doctor> filteredList = new ArrayList<>();
-//        List<String> filteredListBan = new ArrayList<>();
+        List<AllTestModel.Test> filteredList = new ArrayList<>();
         List<String> filteredListImg = new ArrayList<>();
         List<Integer> filteredPosition = new ArrayList<>();
 
-        for (DoctorListModel.Doctor item : doctorList) {
-            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+        for (AllTestModel.Test item : testList) {
+            if (item.getTestName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
-                filteredPosition.add(doctorList.indexOf(item));
+                filteredPosition.add(testList.indexOf(item));
             }
         }
 
-        for (int position : filteredPosition) {
-//            filteredListBan.add(home_module_name_ban_list.get(position));
-            filteredListImg.add(mymensingh_div_service_image_list.get(position));
-        }
-
-//        adapter.filterList(filteredList, filteredListBan, filteredListImg);
         adapter.filterList(filteredList);
     }
 
@@ -162,8 +177,7 @@ public class HomePathologyActivity extends AppCompatActivity {
         String authorization = "Bearer" + " " + token;
         String accept = "application/json";
 
-//        RetrofitApiClient.getApiInterface().get_specialist_doctor_single_division_list(authorization, "HEART")
-        RetrofitApiClient.getApiInterface().doctors(authorization, accept, speciality_division)
+        RetrofitApiClient.getApiInterface().show_all_test(authorization, accept)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -184,17 +198,17 @@ public class HomePathologyActivity extends AppCompatActivity {
                                 response.body(); // do something with that
                                 Log.d("tag11111", " response.body(): " + response.body());
 
-                                DoctorListModel specialistDoctor = response.body();
+                                AllTestModel specialistDoctor = response.body();
 
                                 if (response.code() == 200) {
 
-                                    DoctorListModel model = response.body();
+                                    AllTestModel model = response.body();
 
                                     String responseString = response.message();
 
-                                    doctorList = model.getDoctorList();
+                                    testList = model.getTestList();
 
-                                    adapter.setData(doctorList);
+                                    adapter.setData(testList);
                                     adapter.notifyDataSetChanged();
 
 

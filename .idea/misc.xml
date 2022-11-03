@@ -13,6 +13,7 @@
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/drawable/ic_menu2.xml" value="0.125" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/drawable/ic_menu_left.xml" value="0.125" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/drawable/ic_money.xml" value="0.1655" />
+        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/drawable/ic_paper_with_text.xml" value="0.1165" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/drawable/ic_prescription.xml" value="0.1565" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/drawable/ic_professions_and_jobs.xml" value="0.1655" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/drawable/ic_profile.xml" value="0.1" />
@@ -31,17 +32,20 @@
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_doctor_details.xml" value="0.25" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_doctor_list.xml" value="0.18" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_edit_profile.xml" value="0.36666666666666664" />
-        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_home_pathology.xml" value="0.2" />
+        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_home_pathology.xml" value="0.16" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_hospital_and_clinic.xml" value="0.2" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_main_with_drawer.xml" value="0.3058823529411765" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_mymensingh_division.xml" value="0.3625" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_otp_verification_first_page.xml" value="0.3625" />
-        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_register.xml" value="0.15" />
+        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/activity_splash.xml" value="0.18" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/app_bar_main.xml" value="0.2" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/fragment_account.xml" value="0.1" />
+        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/fragment_my_history.xml" value="0.1" />
+        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/fragment_notifications.xml" value="0.36666666666666664" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/material_dialog_photo.xml" value="0.22" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/material_dialog_pre_appointment_view.xml" value="0.22" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/nav_header_main.xml" value="0.2659846547314578" />
@@ -50,6 +54,7 @@
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/single_item_doctor_department_list.xml" value="0.18" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/single_item_doctor_list.xml" value="0.18" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/single_item_home_module_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/single_item_home_pathology_list.xml" value="0.18" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/layout/single_item_hospital_list.xml" value="0.16" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/menu/activity_main_drawer.xml" value="0.3625" />
         <entry key="..\:/Data/Rifat/Development/Android/MymensinghHelpline/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />

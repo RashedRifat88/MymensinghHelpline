@@ -1,6 +1,9 @@
 package com.egsystembd.MymensinghHelpline.ui.home;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -29,15 +32,27 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.egsystembd.MymensinghHelpline.R;
+import com.egsystembd.MymensinghHelpline.credential.LoginActivity;
+import com.egsystembd.MymensinghHelpline.data.SharedData;
 import com.egsystembd.MymensinghHelpline.databinding.FragmentHomeBinding;
+import com.egsystembd.MymensinghHelpline.model.AppHomeModel;
+import com.egsystembd.MymensinghHelpline.model.HospitalListModel;
+import com.egsystembd.MymensinghHelpline.retrofit.Api;
+import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
 import com.egsystembd.MymensinghHelpline.ui.home.adapter.HomeModuleAdapter;
+import com.egsystembd.MymensinghHelpline.ui.home.hospital_clinic.HospitalAndClinicActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomeFragment extends Fragment {
 
@@ -65,8 +80,9 @@ public class HomeFragment extends Fragment {
         loadRecyclerView();
 
 
-        topScrollText();
+        topScrollText("");
         topSlider();
+        appHomeapi();
 
 //        final TextView textView = binding.textHome;
 //        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -89,15 +105,125 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void topScrollText() {
+    @SuppressLint("CheckResult")
+    public void appHomeapi() {
+
+        showProgressDialog();
+
+        String token = SharedData.getTOKEN(getContext());
+        Log.d("tag11111", " token: " + token);
+        String authorization = "Bearer" + " " + token;
+        String accept = "application/json";
+
+        RetrofitApiClient.getApiInterface().appHome(authorization, accept)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                            Log.d("tag11111", " response.code(): " + response.code());
+
+
+                            if (response.code() == 401) {
+                                Intent intent = new Intent(getContext(), LoginActivity.class);
+                                intent.putExtra("SENDER_ACTIVITY_NAME", "");
+                                startActivity(intent);
+                            }
+
+
+                            if (response.isSuccessful()) {
+                                closeProgressDialog();
+
+                                response.body(); // do something with that
+                                Log.d("tag11111", " response.body(): " + response.body());
+
+                                AppHomeModel model = response.body();
+                                String status = model.getStatus();
+
+                                String topScrollTextList = "";
+
+                                if (status.equalsIgnoreCase("success")) {
+
+
+//                                    ময়মনসিংহ হেল্পলাইন এ আপনাকে স্বাগতম !! | ময়মনসিংহ হেল্পলাইন এ আপনাকে স্বাগতম !! ময়মনসিংহ হেল্পলাইন এ আপনাকে স্বাগতম !!
+
+                                    String topScrollText = model.getDataResponse().getTopScrollText().toString();
+                                    String topScrollText2 = model.getDataResponse().getTopScrollText2().toString();
+                                    String topScrollText3 = model.getDataResponse().getTopScrollText3().toString();
+                                    String topScrollText4 = model.getDataResponse().getTopScrollText4().toString();
+                                    String topScrollText5 = model.getDataResponse().getTopScrollText5().toString();
+
+                                    if (topScrollText != null) {
+                                        topScrollTextList = topScrollTextList  + topScrollText;
+                                    }
+                                    if (topScrollText2 != null) {
+                                        topScrollTextList = topScrollTextList + " | " + topScrollText2;
+                                    }
+                                    if (topScrollText3 != null) {
+                                        topScrollTextList = topScrollTextList + " | " + topScrollText3;
+                                    }
+                                    if (topScrollText4 != null) {
+                                        topScrollTextList = topScrollTextList + " | " + topScrollText4;
+                                    }
+                                    if (topScrollText5 != null) {
+                                        topScrollTextList = topScrollTextList + " | " + topScrollText5;
+                                    }
+
+                                    Log.d("tag11111", " topScrollTextList: " + topScrollTextList);
+                                    topScrollText(topScrollTextList);
+
+                                    ArrayList<SlideModel> imageList = new ArrayList<>();
+                                    String imageUrl1 = Api.BASE_URL_HOME_SLIDER + model.getDataResponse().getTopSliderImg1();
+                                    String imageUrl2 = Api.BASE_URL_HOME_SLIDER + model.getDataResponse().getTopSliderImg2();
+                                    String imageUrl3 = Api.BASE_URL_HOME_SLIDER + model.getDataResponse().getTopSliderImg3();
+                                    imageList.add(new SlideModel(imageUrl1, ScaleTypes.FIT));
+                                    imageList.add(new SlideModel(imageUrl2, ScaleTypes.FIT));
+                                    imageList.add(new SlideModel(imageUrl3, ScaleTypes.FIT));
+
+                                    binding.imageSlider.setImageList(imageList);
+
+
+                                } else {
+                                    new MaterialDialog.Builder(getContext())
+                                            .title("Doctor Status")
+                                            .content("List is empty....")
+                                            .positiveText("")
+                                            .negativeText("Ok")
+                                            .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                                @Override
+                                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                                }
+                                            })
+                                            .show();
+                                }
+
+                            } else {
+
+                            }
+
+
+                        },
+                        error -> {
+
+                            Log.d("tag11111", " response.code(): " + error.toString());
+
+                        },
+                        () -> {
+
+                        }
+                );
+
+
+    }
+
+    private void topScrollText(String scrollText) {
 
         binding.tvMarquee.setSelected(true);
 
-        binding.tvMarquee.setText("    ময়মনসিংহ হেল্পলাইন এ আপনাকে স্বাগতম !! | ময়মনসিংহ হেল্পলাইন এ আপনাকে স্বাগতম !! ময়মনসিংহ হেল্পলাইন এ আপনাকে স্বাগতম !! " );
+        binding.tvMarquee.setText(scrollText);
         Paint textPaint = binding.tvMarquee.getPaint();
         String text = binding.tvMarquee.getText().toString();//get text
         int width = Math.round(textPaint.measureText(text));//measure the text size
-        ViewGroup.LayoutParams params =  binding.tvMarquee.getLayoutParams();
+        ViewGroup.LayoutParams params = binding.tvMarquee.getLayoutParams();
         params.width = width;
         binding.tvMarquee.setLayoutParams(params); //refine
 
@@ -153,7 +279,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     private void loadListData() {
         home_module_name_eng_list = Arrays.asList(getResources().getStringArray(R.array.home_module_name_eng_list));
 //        home_module_name_ban_list = Arrays.asList(getResources().getStringArray(R.array.home_module_name_ban_list));
@@ -163,7 +288,6 @@ public class HomeFragment extends Fragment {
     private void initComponent() {
 //        recyclerView = findViewById(R.id.recyclerView);
     }
-
 
 
     private void loadRecyclerView() {
@@ -206,13 +330,24 @@ public class HomeFragment extends Fragment {
     }
 
 
-
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+    ProgressDialog progressDialog;
+
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Please wait ....");
+        progressDialog.show();
+    }
+
+    private void closeProgressDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
     }
 
 

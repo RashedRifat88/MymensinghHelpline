@@ -435,6 +435,7 @@ public class DoctorDetailsActivity extends AppCompatActivity {
                                     doctorFeePaymentType = model.getFeePaymentType().toString();
 
                                     String imageUrl = Api.BASE_URL_IMAGE_ASSET + model.getImage();
+
                                     if (model.getImage() == null || model.getImage().isEmpty()) {
                                         imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_doctor1));
                                     } else {
