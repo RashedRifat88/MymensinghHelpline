@@ -103,6 +103,13 @@ public class HomePathologyActivity extends AppCompatActivity {
                 filter(s.toString());
             }
         });
+
+
+        binding.card1.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePathologyActivity.this, UploadPrescriptionActivity.class);
+            startActivity(intent);
+        });
+
     }
 
 

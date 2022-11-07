@@ -19,6 +19,16 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -31,6 +41,9 @@
         android:theme="@style/Theme.MymensinghHelpline"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.home.home_pathology.UploadPrescriptionActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.home.home_pathology.HomePathologyCheckoutActivity"
             android:exported="false" />

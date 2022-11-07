@@ -21,6 +21,7 @@ public class Api {
     public static final String appointment_history = "appointment_history";
     public static final String app_home = "app_home";
     public static final String show_all_test = "show_all_test";
+    public static final String upload_test_order = "upload_test_order";
 
 
 }

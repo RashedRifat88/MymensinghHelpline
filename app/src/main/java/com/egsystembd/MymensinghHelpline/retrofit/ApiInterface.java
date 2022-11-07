@@ -9,6 +9,8 @@ import com.egsystembd.MymensinghHelpline.model.HospitalListModel;
 import com.egsystembd.MymensinghHelpline.model.LoginModel;
 import com.egsystembd.MymensinghHelpline.model.MakeAppointmentModel;
 import com.egsystembd.MymensinghHelpline.model.RegisterModel;
+import com.egsystembd.MymensinghHelpline.model.UploadPrescriptionModel;
+import com.egsystembd.MymensinghHelpline.model.UploadTestOrderModel;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -107,6 +109,34 @@ public interface ApiInterface {
                                                                       @Header("Accept") String accept,
                                                                       @Field("phone") String phone
     );
+
+
+//
+//    @Multipart
+//    @POST(Api.upload_test_order)
+//    Observable<Response<UploadTestOrderModel>> upload_prescription(@Header("Authorization") String authorization,
+//                                                                   @Header("Accept") String accept,
+//                                                                   @Part MultipartBody.Part test_prescription
+//
+//    );
+
+
+    @Multipart
+    @POST(Api.upload_test_order)
+    Observable<Response<UploadTestOrderModel>> upload_prescription(@Header("Authorization") String authorization,
+                                                                   @Header("Accept") String accept,
+                                                                   @Part MultipartBody.Part body,
+                                                                   @Part("pat_id") String pat_id,
+                                                                   @Part("pat_name") String pat_name,
+                                                                   @Part("pat_mobile") String pat_mobile,
+                                                                   @Part("hospital_name") String hospital_name,
+                                                                   @Part("test_list") String test_list,
+                                                                   @Part("test_price_list") String test_price_list,
+                                                                   @Part("has_prescription") String has_prescription
+
+    );
+
+
 
 
     @GET(Api.doctors)

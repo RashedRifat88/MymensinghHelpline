@@ -29,6 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SplashActivity extends AppCompatActivity {
 
+
     private ImageView iv_map;
     private TextView tv1, tv2;
 

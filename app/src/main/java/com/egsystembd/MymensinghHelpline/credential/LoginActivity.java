@@ -509,6 +509,8 @@ public class LoginActivity extends AppCompatActivity {
 //                                boolean status = loginModel.getSuccess();
 //                                String status2 = loginModel.getMessage();
                                 String userToken = loginModel.getToken().toString();
+
+                                SharedData.saveTOKEN(LoginActivity.this, userToken);
 //                                String message = loginModel.getMessage();
 //                                String user_name = loginModel.getData().getName();
 //                                String email = loginModel.getData().getPhone();
