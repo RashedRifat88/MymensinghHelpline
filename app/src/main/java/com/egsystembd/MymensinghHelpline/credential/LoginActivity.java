@@ -53,6 +53,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        boolean isLogged_in = SharedData.getIS_USER_LOGGED_IN(this);
+        if (isLogged_in){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         initStatusBar();
         initComponents();
         checkSharedPrefData();
@@ -474,8 +481,15 @@ public class LoginActivity extends AppCompatActivity {
 //                                boolean status = loginModel.getSuccess();
 //                                String status2 = loginModel.getMessage();
                                 String userToken = loginModel.getToken().toString();
+                                String user_id = loginModel.getUser().getId().toString();
+                                String user_name = loginModel.getUser().getName();
+                                String user_phone = loginModel.getUser().getPhone();
 
                                 SharedData.saveTOKEN(LoginActivity.this, userToken);
+                                SharedData.saveTOKEN(LoginActivity.this, userToken);
+                                SharedData.saveUSER_NAME(LoginActivity.this, user_name);
+                                SharedData.saveUSER_ID(LoginActivity.this, user_id);
+                                SharedData.saveUSER_MOBILE(LoginActivity.this, user_phone);
 
                                 SharedData.saveIS_USER_REGISTERED(this, true);
                                 SharedData.saveIS_USER_LOGGED_IN(this, true);
@@ -484,7 +498,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
-//
+
 
                             new MaterialDialog.Builder(LoginActivity.this)
                                     .title("Status")
@@ -512,7 +526,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                 SharedData.saveTOKEN(LoginActivity.this, userToken);
 //                                String message = loginModel.getMessage();
-//                                String user_name = loginModel.getData().getName();
+                                String user_id = loginModel.getUser().getId().toString();
+                                String user_name = loginModel.getUser().getName();
+                                String user_phone = loginModel.getUser().getPhone();
 //                                String email = loginModel.getData().getPhone();
 //                                String address = loginModel.getData().getAddress();
 //                                String verification = loginModel.getData().getVerification();
@@ -528,13 +544,14 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d("tag20", "userToken in onClickVerify: ");
 
 
-
 //                                customProgress.showProgress(LoginActivity.this, "Verifying... Please wait...", true);
 
                                 if (response.code() == 200) {
 
-
                                     SharedData.saveTOKEN(LoginActivity.this, userToken);
+                                    SharedData.saveUSER_NAME(LoginActivity.this, user_name);
+                                    SharedData.saveUSER_ID(LoginActivity.this, user_id);
+                                    SharedData.saveUSER_MOBILE(LoginActivity.this, user_phone);
 
                                     SharedData.saveIS_USER_REGISTERED(this, true);
                                     SharedData.saveIS_USER_LOGGED_IN(this, true);
@@ -543,7 +560,6 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 }
-//
 
 
                             } else {

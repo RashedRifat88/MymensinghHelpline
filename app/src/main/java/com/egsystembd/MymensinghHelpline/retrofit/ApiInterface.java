@@ -12,6 +12,8 @@ import com.egsystembd.MymensinghHelpline.model.RegisterModel;
 import com.egsystembd.MymensinghHelpline.model.UploadPrescriptionModel;
 import com.egsystembd.MymensinghHelpline.model.UploadTestOrderModel;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.Response;
@@ -129,12 +131,13 @@ public interface ApiInterface {
                                                                    @Part("pat_id") String pat_id,
                                                                    @Part("pat_name") String pat_name,
                                                                    @Part("pat_mobile") String pat_mobile,
-                                                                   @Part("hospital_name") String hospital_name,
-                                                                   @Part("test_list") String test_list,
-                                                                   @Part("test_price_list") String test_price_list,
+                                                                   @Part("hospital_name[]") List<String> hospital_name,
+                                                                   @Part("test_list[]") List<String> test_list,
+                                                                   @Part("test_price_list[]") List<String> test_price_list,
                                                                    @Part("has_prescription") String has_prescription
 
     );
+
 
 
 

@@ -10,9 +10,12 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -24,6 +27,7 @@ import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
 
 import org.json.JSONException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -35,6 +39,17 @@ import okhttp3.RequestBody;
 public class HomePathologyCheckoutActivity extends AppCompatActivity {
 
     ArrayList<AllTestModel.Test> selectedTests;
+    ArrayList<String> testList = new ArrayList<>();
+    ArrayList<String> testPriceList = new ArrayList<>();
+    ArrayList<String> hospitalList = new ArrayList<>();
+    private String subTotalPrice;
+    private Double sumOfPrice = 0.0;
+    private EditText etName, etPhone;
+    private Button btn_order_now;
+
+    String pat_name = "";
+    String pat_mobile = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +58,68 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
 
         selectedTests = (ArrayList<AllTestModel.Test>) getIntent().getSerializableExtra("selected_tests");
 
+        initComponents();
         addTable();
+        calculateData();
+    }
+
+    private void initComponents() {
+
+        btn_order_now = findViewById(R.id.btn_order_now);
+        etName = findViewById(R.id.etName);
+        etPhone = findViewById(R.id.etPhone);
+
+        pat_name = SharedData.getUSER_NAME(this);
+        pat_mobile = SharedData.getUSER_MOBILE(this);
+
+        etName.setText(pat_name);
+        etPhone.setText(pat_mobile);
+
+
+        btn_order_now.setOnClickListener(v -> {
+
+            pat_name = etName.getText().toString();
+            pat_mobile = etPhone.getText().toString();
+
+            if (selectedTests != null) {
+
+                if (pat_name.isEmpty() || pat_mobile.isEmpty()) {
+                    Toast.makeText(this, "Please fill up necessary fields ", Toast.LENGTH_SHORT).show();
+                } else {
+                    uploadTestOrder(pat_name, pat_mobile);
+                }
+
+            } else {
+                Toast.makeText(this, "Please select at least one ", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
     }
 
 
+    private void calculateData() {
+
+        testList = new ArrayList<>();
+        testPriceList = new ArrayList<>();
+        hospitalList = new ArrayList<>();
+
+        for (AllTestModel.Test m : selectedTests) {
+            testList.add(m.getTestName());
+            testPriceList.add(m.getTestPrice());
+            hospitalList.add(m.getHospitalName());
+        }
+
+
+    }
+
 
     private void addTable() {
+        calculateTotalPrice();
         addHeaders();
         addData();
         addFooters();
-        addFooters2();
+//        addFooters2();
     }
 
 
@@ -110,7 +177,7 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
         tr.addView(getTextView(0, "Test", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_100)));
         tr.addView(getTextView(0, "Price", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_100)));
 //        tr.addView(getTextView(0, "Quantity", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_100)));
-        tr.addView(getTextView(0, "Total", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_100)));
+//        tr.addView(getTextView(0, "Total", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_100)));
         tl.addView(tr, getTblLayoutParams());
     }
 
@@ -120,9 +187,9 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(getLayoutParams());
         tr.addView(getTextView(0, "Total Price", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.light_green_100)));
-        tr.addView(getTextView(0, "", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.light_green_100)));
 //        tr.addView(getTextView(0, "", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.light_green_100)));
-//        tr.addView(getTextView(0, subTotalPrice, Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.light_green_100)));
+//        tr.addView(getTextView(0, "", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.light_green_100)));
+        tr.addView(getTextView(0, subTotalPrice, Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.light_green_100)));
         tl.addView(tr, getTblLayoutParams());
     }
 
@@ -131,10 +198,22 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
         TableRow tr = new TableRow(this);
         tr.setLayoutParams(getLayoutParams());
         tr.addView(getTextView(0, "Total Payable Price", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_50)));
-        tr.addView(getTextView(0, "", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_50)));
+//        tr.addView(getTextView(0, "", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_50)));
 //        tr.addView(getTextView(0, "", Color.BLACK, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_50)));
 //        tr.addView(getTextView2(0, String.valueOf(totalPayableNetPrice), Color.RED, Typeface.BOLD, ContextCompat.getColor(this, R.color.deep_orange_50)));
         tl.addView(tr, getTblLayoutParams());
+    }
+
+
+    private void calculateTotalPrice() {
+        for (AllTestModel.Test m : selectedTests) {
+            sumOfPrice = sumOfPrice + Double.parseDouble(m.getTestPrice());
+        }
+
+        DecimalFormat df = new DecimalFormat("####0.00");
+
+        sumOfPrice = Double.parseDouble(new DecimalFormat("####0.00").format(sumOfPrice));
+        subTotalPrice = "\u09F3 " + String.valueOf(sumOfPrice);
     }
 
 
@@ -151,39 +230,37 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
             tr.addView(getTextView(i, selectedTests.get(i).getTestName(), Color.BLACK, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorWhite)));
             tr.addView(getTextView(i, selectedTests.get(i).getTestPrice(), Color.BLACK, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorWhite)));
 //            tr.addView(getTextView(i, quantities.get(i), Color.BLACK, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorWhite)));
-            tr.addView(getTextView(i, selectedTests.get(i).getTestPrice(), Color.BLACK, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorWhite)));
+//            tr.addView(getTextView(i, selectedTests.get(i).getTestPrice(), Color.BLACK, Typeface.NORMAL, ContextCompat.getColor(this, R.color.colorWhite)));
 
             tl.addView(tr, getTblLayoutParams());
         }
-
 
 
     }
 
 
     @SuppressLint("CheckResult")
-    public void uploadTestOrder(byte[] imageBytes) {
+    public void uploadTestOrder(String pat_name, String pat_mobile) {
 
         String token = SharedData.getTOKEN(this);
         String authorization = "Bearer" + " " + token;
         String accept = "application/json";
 
-        String pat_id = "4";
-        String pat_name = "pat_namee";
-        String pat_mobile = "pat_mobilee";
-        String hospital_name = "";
-        String test_list = "hospital_namee";
-        String test_price_list = "test_price_liste";
-        String has_prescription = "has_prescriptione";
+        String pat_id = SharedData.getUSER_ID(this);
+//        String hospital_name = "";
+//        String test_list = "hospital_namee";
+//        String test_price_list = "test_price_liste";
+        String has_prescription = "no";
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("test_prescription", "image.jpg", requestFile);
+//        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
+//        MultipartBody.Part body = MultipartBody.Part.createFormData("test_prescription", "image.jpg", requestFile);
+        MultipartBody.Part body = null;
 
         Log.d("tag111666", " authorization: " + authorization);
         Log.d("tag111666", " body: " + body);
 
-        RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body, pat_id, pat_name, pat_mobile, hospital_name,
-                        test_list, test_price_list, has_prescription)
+        RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body, pat_id, pat_name, pat_mobile, hospitalList,
+                        testList, testPriceList, has_prescription)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -191,7 +268,7 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
                             Log.d("tag111666", " response.message()(): " + response.message());
                             Log.d("tag111666", " response.body()()(): " + response.body());
 
-                            if (response.code() == 404){
+                            if (response.code() == 404) {
 
                             }
 
@@ -259,9 +336,6 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
                 );
 
     }
-
-
-
 
 
 }

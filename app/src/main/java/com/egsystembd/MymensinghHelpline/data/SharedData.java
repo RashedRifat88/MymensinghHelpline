@@ -14,7 +14,9 @@ public class SharedData {
     public static final String PASSWORD = "password";
     public static final String DOCTOR_ID = "doctor_id";
     public static final String NOTIFICATION_COUNT = "notification_count";
+    public static final String USER_ID = "user_id";
     public static final String USER_NAME = "user_name";
+    public static final String USER_MOBILE = "user_mobile";
     public static final String BMDC_NO = "bmdc_no";
     public static final String PROFILE_IMAGE_URL = "profile_image_url";
     public static final String FATHER_NAME = "father_name";
@@ -27,20 +29,9 @@ public class SharedData {
     public static final String JOB_DESCRIPTION = "job_description";
     public static final String PRESENT_ADDRESS = "present_address";
 
-    public static final String SKIPPED_QUES_ID_STORED = "skipped_ques_id_stored";
-
     public static final String NIGHT_NODE_ENABLED = "night_node_enabled";
     public static final String ADDS_DISABLED = "adds_disabled";
 
-    public static final String COURSE_NAME = "course_name";
-    public static final String EXAM_NAME = "exam_name";
-    public static final String EXAM_DURATION = "exam_duration";
-    public static final String MCQ_NUMBER = "mcq_number";
-    public static final String MCQ_MARK = "mcq_mark";
-    public static final String MCQ_NEGATIVE_MARK = "mcq_negative_mark";
-    public static final String SBA_NUMBER = "sba_number";
-    public static final String SBA_MARK = "sba_mark";
-    public static final String SBA_NEGATIVE_MARK = "sba_negative_mark";
 
 
     public static void saveTOKEN(Context context, String value) {
@@ -227,112 +218,6 @@ public class SharedData {
 
     ///
 
-
-    public static void saveCOURSE_NAME(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(COURSE_NAME, value);
-        editor.commit();
-    }
-
-    public static String getCOURSE_NAME(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(COURSE_NAME, null);
-    }
-
-
-    public static void saveEXAM_NAME(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(EXAM_NAME, value);
-        editor.commit();
-    }
-
-    public static String getEXAM_NAME(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(EXAM_NAME, null);
-    }
-
-
-    public static void saveEXAM_DURATION(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(EXAM_DURATION, value);
-        editor.commit();
-    }
-
-    public static String getEXAM_DURATION(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(EXAM_DURATION, null);
-    }
-
-
-    public static void saveMCQ_NUMBER(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(MCQ_NUMBER, value);
-        editor.commit();
-    }
-
-    public static String getMCQ_NUMBER(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(MCQ_NUMBER, null);
-    }
-
-    public static void saveMCQ_MARK(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(MCQ_MARK, value);
-        editor.commit();
-    }
-
-    public static String getMCQ_MARK(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(MCQ_MARK, null);
-    }
-
-    public static void saveMCQ_NEGATIVE_MARK(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(MCQ_NEGATIVE_MARK, value);
-        editor.commit();
-    }
-
-    public static String getMCQ_NEGATIVE_MARK(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(MCQ_NEGATIVE_MARK, null);
-    }
-
-    public static void saveSBA_NUMBER(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(SBA_NUMBER, value);
-        editor.commit();
-    }
-
-    public static String getSBA_NUMBER(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(SBA_NUMBER, null);
-    }
-
-    public static void saveSBA_MARK(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(SBA_MARK, value);
-        editor.commit();
-    }
-
-    public static String getSBA_MARK(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(SBA_MARK, null);
-    }
-
-    public static void saveSBA_NEGATIVE_MARK(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(SBA_NEGATIVE_MARK, value);
-        editor.commit();
-    }
-
-    public static String getSBA_NEGATIVE_MARK(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(SBA_NEGATIVE_MARK, null);
-    }
-
-    ///
-
-
     public static void saveDOCTOR_ID(Context context, String value) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString(DOCTOR_ID, value);
@@ -370,6 +255,18 @@ public class SharedData {
     }
 
 
+    public static void saveUSER_ID(Context context, String value) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putString(USER_ID, value);
+        editor.commit();
+    }
+
+    public static String getUSER_ID(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(USER_ID, null);
+    }
+
+
     public static void saveUSER_NAME(Context context, String value) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString(USER_NAME, value);
@@ -379,6 +276,18 @@ public class SharedData {
     public static String getUSER_NAME(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getString(USER_NAME, null);
+    }
+
+
+    public static void saveUSER_MOBILE(Context context, String value) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putString(USER_MOBILE, value);
+        editor.commit();
+    }
+
+    public static String getUSER_MOBILE(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(USER_MOBILE, null);
     }
 
 
@@ -405,17 +314,6 @@ public class SharedData {
         return sharedPreferences.getString(BMDC_NO, null);
     }
 
-
-    public static void saveSKIPPED_QUES_ID_STORED(Context context, String value) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putString(SKIPPED_QUES_ID_STORED, value);
-        editor.commit();
-    }
-
-    public static String getSKIPPED_QUES_ID_STORED(Context context) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(SKIPPED_QUES_ID_STORED, "0");
-    }
 
 
 }

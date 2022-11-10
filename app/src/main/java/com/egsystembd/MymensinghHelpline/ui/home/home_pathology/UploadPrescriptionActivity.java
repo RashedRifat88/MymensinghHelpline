@@ -229,10 +229,14 @@ public class UploadPrescriptionActivity extends AppCompatActivity {
         String pat_id = "4";
         String pat_name = "pat_namee";
         String pat_mobile = "pat_mobilee";
-        String hospital_name = "";
-        String test_list = "hospital_namee";
-        String test_price_list = "test_price_liste";
+//        String hospital_name = "";
+//        String test_list = "hospital_namee";
+//        String test_price_list = "test_price_liste";
         String has_prescription = "has_prescriptione";
+
+        ArrayList<String> testList = new ArrayList<>();
+        ArrayList<String> testPriceList = new ArrayList<>();
+        ArrayList<String> hospitalList = new ArrayList<>();
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
         MultipartBody.Part body = MultipartBody.Part.createFormData("test_prescription", "image.jpg", requestFile);
@@ -241,8 +245,8 @@ public class UploadPrescriptionActivity extends AppCompatActivity {
         Log.d("tag111666", " body: " + body);
 
 //        RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body)
-        RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body, pat_id, pat_name, pat_mobile, hospital_name,
-                        test_list, test_price_list, has_prescription)
+        RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body, pat_id, pat_name, pat_mobile, hospitalList,
+                        testList, testPriceList, has_prescription)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
