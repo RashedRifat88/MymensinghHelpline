@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,7 +29,10 @@ import com.egsystembd.MymensinghHelpline.retrofit.RetrofitApiClient;
 import org.json.JSONException;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -242,35 +246,56 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     public void uploadTestOrder(String pat_name, String pat_mobile) {
 
+        showProgressDialog();
+
         String token = SharedData.getTOKEN(this);
         String authorization = "Bearer" + " " + token;
         String accept = "application/json";
 
         String pat_id = SharedData.getUSER_ID(this);
-//        String hospital_name = "";
-//        String test_list = "hospital_namee";
-//        String test_price_list = "test_price_liste";
+
         String has_prescription = "no";
+        String date = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss", Locale.getDefault()).format(new Date());
 
 //        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imageBytes);
 //        MultipartBody.Part body = MultipartBody.Part.createFormData("test_prescription", "image.jpg", requestFile);
         MultipartBody.Part body = null;
 
+//        ArrayList<String> testList = new ArrayList<>();
+//        ArrayList<String> testPriceList = new ArrayList<>();
+//        ArrayList<String> hospitalList = new ArrayList<>();
+
         Log.d("tag111666", " authorization: " + authorization);
         Log.d("tag111666", " body: " + body);
 
-        RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body, pat_id, pat_name, pat_mobile, hospitalList,
-                        testList, testPriceList, has_prescription)
+        Log.d("tag111666", " pat_id: " + pat_id);
+        Log.d("tag111666", " pat_name: " + pat_name);
+        Log.d("tag111666", " pat_mobile: " + pat_mobile);
+        Log.d("tag111666", " hospitalList: " + hospitalList);
+        Log.d("tag111666", " testList: " + testList);
+        Log.d("tag111666", " testPriceList: " + testPriceList);
+        Log.d("tag111666", " has_prescription: " + has_prescription);
+        Log.d("tag111666", " date: " + date);
+
+//        RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body, pat_id, pat_name, pat_mobile, hospitalList,
+//                        testList, testPriceList, has_prescription, date)
+        RetrofitApiClient.getApiInterface().order_tests(authorization, accept, pat_id, pat_name, pat_mobile, hospitalList,
+                        testList, testPriceList, has_prescription, date)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
+
+                            closeProgressDialog();
                             Log.d("tag111666", " response.code(): " + response.code());
-                            Log.d("tag111666", " response.message()(): " + response.message());
-                            Log.d("tag111666", " response.body()()(): " + response.body());
+                            Log.d("tag111666", " response.message(): " + response.message());
+                            Log.d("tag111666", " response.errorBody(): " + response.errorBody());
+                            Log.d("tag111666", " response.raw(): " + response.raw());
+                            Log.d("tag111666", " response.body(): " + response.body());
 
                             if (response.code() == 404) {
 
                             }
+
 
 //                            progressDialog.dismiss();
 
@@ -300,6 +325,7 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                                     dialog.dismiss();
+                                                    finish();
                                                 }
                                             })
                                             .show();
@@ -331,11 +357,29 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
                             Log.d("tag111666", " error: " + error.getMessage());
                         },
                         () -> {
-                            Log.d("tag111666", " response.code(): ");
+//                            Log.d("tag111666", " response.code(): ");
                         }
                 );
 
     }
+
+
+
+    ProgressDialog progressDialog;
+
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait ....");
+        progressDialog.show();
+    }
+
+    private void closeProgressDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+
+
 
 
 }

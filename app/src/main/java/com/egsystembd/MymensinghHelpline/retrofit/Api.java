@@ -4,9 +4,10 @@ package com.egsystembd.MymensinghHelpline.retrofit;
 public class Api {
 
 //    public static final String BASE_URL = "http://127.0.0.1:7000/api/v1/";
+    public static final String BASE_URL_IMAGE = "http://192.168.20.246:80/";
     public static final String BASE_URL = "http://192.168.20.246:80/api/v1/";
-    public static final String BASE_URL_IMAGE_ASSET = BASE_URL+ "doctor_image/";
-    public static final String BASE_URL_HOME_SLIDER = BASE_URL+ "home_slider_image/";
+    public static final String BASE_URL_IMAGE_ASSET = BASE_URL_IMAGE + "doctor_image/";
+    public static final String BASE_URL_HOME_SLIDER = BASE_URL_IMAGE + "home_slider_image/";
 //    public static final String BASE_URL = "http://10.0.2.2/";
 //    public static final String BASE_URL = "http://10.0.2.16/";
 

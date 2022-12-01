@@ -71,6 +71,9 @@ public class UploadTestOrderModel {
         @SerializedName("created_at")
         @Expose
         private String createdAt;
+        @SerializedName("date")
+        @Expose
+        private String date;
         @SerializedName("id")
         @Expose
         private Integer id;
@@ -145,6 +148,14 @@ public class UploadTestOrderModel {
 
         public void setCreatedAt(String createdAt) {
             this.createdAt = createdAt;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
         }
 
         public Integer getId() {

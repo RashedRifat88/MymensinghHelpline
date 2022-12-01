@@ -14,6 +14,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,8 +41,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -89,9 +93,9 @@ public class UploadPrescriptionActivity extends AppCompatActivity {
             chooseProfilePicture();
         });
 
-        binding.btUpload.setOnClickListener(v -> {
-            chooseProfilePicture();
-        });
+//        binding.btUpload.setOnClickListener(v -> {
+//            chooseProfilePicture();
+//        });
     }
 
 
@@ -222,6 +226,8 @@ public class UploadPrescriptionActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     public void uploadImage(byte[] imageBytes) {
 
+        showProgressDialog();
+
         String token = SharedData.getTOKEN(this);
         String authorization = "Bearer" + " " + token;
         String accept = "application/json";
@@ -233,6 +239,7 @@ public class UploadPrescriptionActivity extends AppCompatActivity {
 //        String test_list = "hospital_namee";
 //        String test_price_list = "test_price_liste";
         String has_prescription = "has_prescriptione";
+        String date = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss", Locale.getDefault()).format(new Date());
 
         ArrayList<String> testList = new ArrayList<>();
         ArrayList<String> testPriceList = new ArrayList<>();
@@ -246,10 +253,12 @@ public class UploadPrescriptionActivity extends AppCompatActivity {
 
 //        RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body)
         RetrofitApiClient.getApiInterface().upload_prescription(authorization, accept, body, pat_id, pat_name, pat_mobile, hospitalList,
-                        testList, testPriceList, has_prescription)
+                        testList, testPriceList, has_prescription, date)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
+
+                    closeProgressDialog();
                             Log.d("tag111666", " response.code(): " + response.code());
                             Log.d("tag111666", " response.message()(): " + response.message());
                             Log.d("tag111666", " response.body()()(): " + response.body());
@@ -286,6 +295,7 @@ public class UploadPrescriptionActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                                     dialog.dismiss();
+                                                    finish();
                                                 }
                                             })
                                             .show();
@@ -322,6 +332,22 @@ public class UploadPrescriptionActivity extends AppCompatActivity {
                 );
 
     }
+
+
+    ProgressDialog progressDialog;
+
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait ....");
+        progressDialog.show();
+    }
+
+    private void closeProgressDialog() {
+        if (progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
+
 
 
 

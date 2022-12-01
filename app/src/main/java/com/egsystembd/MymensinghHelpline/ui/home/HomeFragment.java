@@ -180,6 +180,10 @@ public class HomeFragment extends Fragment {
 
                                     binding.imageSlider.setImageList(imageList);
 
+                                    Log.d("tag11111", " imageUrl1: " + imageUrl1);
+                                    Log.d("tag11111", " imageUrl2: " + imageUrl2);
+                                    Log.d("tag11111", " imageUrl3: " + imageUrl3);
+
 
                                 } else {
                                     new MaterialDialog.Builder(getContext())

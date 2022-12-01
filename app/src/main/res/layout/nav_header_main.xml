@@ -67,7 +67,7 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_margin="@dimen/spacing_medium"
-                    app:srcCompat="@drawable/ic_profile"
+                    android:background="@drawable/ic_profile"
                     tools:ignore="MissingClass" />
 
             </LinearLayout>

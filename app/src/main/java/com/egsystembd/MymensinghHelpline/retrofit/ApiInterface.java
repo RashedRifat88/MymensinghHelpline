@@ -134,12 +134,26 @@ public interface ApiInterface {
                                                                    @Part("hospital_name[]") List<String> hospital_name,
                                                                    @Part("test_list[]") List<String> test_list,
                                                                    @Part("test_price_list[]") List<String> test_price_list,
-                                                                   @Part("has_prescription") String has_prescription
+                                                                   @Part("has_prescription") String has_prescription,
+                                                                   @Part("date") String date
 
     );
 
 
+    @FormUrlEncoded
+    @POST(Api.upload_test_order)
+    Observable<Response<UploadTestOrderModel>> order_tests(@Header("Authorization") String authorization,
+                                                           @Header("Accept") String accept,
+                                                           @Field("pat_id") String pat_id,
+                                                           @Field("pat_name") String pat_name,
+                                                           @Field("pat_mobile") String pat_mobile,
+                                                           @Field("hospital_name") List<String> hospital_name,
+                                                           @Field("test_list") List<String> test_list,
+                                                           @Field("test_price_list") List<String> test_price_list,
+                                                           @Field("has_prescription") String has_prescription,
+                                                           @Field("date") String date
 
+    );
 
 
     @GET(Api.doctors)
@@ -181,7 +195,7 @@ public interface ApiInterface {
 
     @GET(Api.app_home)
     Observable<Response<AppHomeModel>> appHome(@Header("authorization") String authorization,
-                                                 @Header("Accept") String accept
+                                               @Header("Accept") String accept
 
     );
 
