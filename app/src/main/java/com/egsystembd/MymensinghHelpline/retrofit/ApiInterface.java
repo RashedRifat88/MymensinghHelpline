@@ -147,9 +147,9 @@ public interface ApiInterface {
                                                            @Field("pat_id") String pat_id,
                                                            @Field("pat_name") String pat_name,
                                                            @Field("pat_mobile") String pat_mobile,
-                                                           @Field("hospital_name") List<String> hospital_name,
-                                                           @Field("test_list") List<String> test_list,
-                                                           @Field("test_price_list") List<String> test_price_list,
+                                                           @Field("hospital_name[]") List<String> hospital_name,
+                                                           @Field("test_list[]") List<String> test_list,
+                                                           @Field("test_price_list[]") List<String> test_price_list,
                                                            @Field("has_prescription") String has_prescription,
                                                            @Field("date") String date
 

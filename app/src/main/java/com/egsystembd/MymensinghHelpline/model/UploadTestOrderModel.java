@@ -53,15 +53,15 @@ public class UploadTestOrderModel {
         @SerializedName("pat_mobile")
         @Expose
         private String patMobile;
-        @SerializedName("hospital_name")
-        @Expose
-        private String hospitalName;
-        @SerializedName("test_list")
-        @Expose
-        private String testList;
-        @SerializedName("test_price_list")
-        @Expose
-        private String testPriceList;
+//        @SerializedName("hospital_name")
+//        @Expose
+//        private String hospitalName;
+//        @SerializedName("test_list")
+//        @Expose
+//        private String testList;
+//        @SerializedName("test_price_list")
+//        @Expose
+//        private String testPriceList;
         @SerializedName("has_prescription")
         @Expose
         private String hasPrescription;
@@ -102,29 +102,29 @@ public class UploadTestOrderModel {
             this.patMobile = patMobile;
         }
 
-        public String getHospitalName() {
-            return hospitalName;
-        }
-
-        public void setHospitalName(String hospitalName) {
-            this.hospitalName = hospitalName;
-        }
-
-        public String getTestList() {
-            return testList;
-        }
-
-        public void setTestList(String testList) {
-            this.testList = testList;
-        }
-
-        public String getTestPriceList() {
-            return testPriceList;
-        }
-
-        public void setTestPriceList(String testPriceList) {
-            this.testPriceList = testPriceList;
-        }
+//        public String getHospitalName() {
+//            return hospitalName;
+//        }
+//
+//        public void setHospitalName(String hospitalName) {
+//            this.hospitalName = hospitalName;
+//        }
+//
+//        public String getTestList() {
+//            return testList;
+//        }
+//
+//        public void setTestList(String testList) {
+//            this.testList = testList;
+//        }
+//
+//        public String getTestPriceList() {
+//            return testPriceList;
+//        }
+//
+//        public void setTestPriceList(String testPriceList) {
+//            this.testPriceList = testPriceList;
+//        }
 
         public String getHasPrescription() {
             return hasPrescription;

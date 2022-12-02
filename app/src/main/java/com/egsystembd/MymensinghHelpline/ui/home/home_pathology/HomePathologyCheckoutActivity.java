@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -50,6 +52,7 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
     private Double sumOfPrice = 0.0;
     private EditText etName, etPhone;
     private Button btn_order_now;
+    private ImageView iv_back;
 
     String pat_name = "";
     String pat_mobile = "";
@@ -69,6 +72,8 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
 
     private void initComponents() {
 
+        iv_back = findViewById(R.id.iv_back);
+
         btn_order_now = findViewById(R.id.btn_order_now);
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
@@ -78,6 +83,11 @@ public class HomePathologyCheckoutActivity extends AppCompatActivity {
 
         etName.setText(pat_name);
         etPhone.setText(pat_mobile);
+
+
+        iv_back.setOnClickListener(v -> {
+            finish();
+        });
 
 
         btn_order_now.setOnClickListener(v -> {
